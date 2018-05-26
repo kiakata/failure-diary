@@ -1,0 +1,31 @@
+{% extends "nikki/base.html" %}
+
+{% block content %}
+<div class="container py-3">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>ニックネー</th>
+        <td>{{ user.nickname }}</td>
+      </tr>
+      <tr>
+        <th>性別</th>
+        <td>{{ user.gender }}</td>
+      </tr>
+      <tr>
+        <th>年代</th>
+        <td>{{ user.age }}</td>
+      </tr>
+      <tr>
+        <th>タイトル</th>
+        <td>{{ article.title }}</td>
+      </tr>
+      <tr>
+        <th>本文</th>
+        <td>{{ article.text }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+{% endblock %}

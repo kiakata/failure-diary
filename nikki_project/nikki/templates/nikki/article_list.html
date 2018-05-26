@@ -1,0 +1,187 @@
+{% extends "nikki/base.html" %}
+
+{% block content %}
+{{ category_work.article }}
+<section class="">
+<div class="jumbotron">
+  <h2 class="display-5">失敗を日記に記して、一区切りつけませんか？</h2>
+  <hr class="my-2">
+  <p>自分のSNSアカウントに書くのはちょっと嫌だけど、このサイトだけのニックネームでなら書けるかも。</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#!" role="button">日記を書く</a>
+  </p>
+</div>
+</section>
+<div class="container">
+  <section class="category my-5">
+    <a href="#" class="mr-3" style="text-decoration:none;">日常</a>
+    <a href="#" class="mr-3" style="text-decoration:none;">仕事</a>
+    <a href="#" class="mr-3" style="text-decoration:none;">学校生活</a>
+    <a href="#" class="mr-3" style="text-decoration:none;">勉強</a>
+    <a href="#" class="mr-3" style="text-decoration:none;">恋愛</a>
+    <a href="#" style="text-decoration:none;">その他小ネタなど</a>
+  </section>
+  <section class="work pb-5">
+    <h3 class=""><a href="#" class="">日常</a></h3>
+    <div class="row my-md-5 text-center">
+      {% for article in category_life %}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+            <p class="card-text">
+              {{ article.text|linebreaksbr|truncatechars:60  }}
+            </p>
+            <a href="#!" class="card-link">続きを見る</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h3 class=""><a href="#" class="my-0 py-0">仕事</a></h3>
+    <div class="row my-md-5 text-center">
+      {% for article in category_work%}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+            <p class="card-text">
+              {{ article.text|linebreaksbr|truncatechars:60  }}
+            </p>
+            <a href="#!" class="card-link">Card link</a>
+            <a href="#!" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h3 class=""><a href="#" class="">学校生活</a></h3>
+    <div class="row my-md-5 text-center">
+      {% for article in category_school%}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+            <p class="card-text">
+              {{ article.text|linebreaksbr|truncatechars:60  }}
+            </p>
+            <a href="#!" class="card-link">Card link</a>
+            <a href="#!" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h3 class=""><a href="#" class="">恋愛</a></h3>
+    <div class="row my-md-5 text-center">
+      {% for article in category_love%}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+            <p class="card-text">
+              {{ article.text|linebreaksbr|truncatechars:60  }}
+            </p>
+            <a href="#!" class="card-link">Card link</a>
+            <a href="#!" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h3 class=""><a href="#" class="">勉強</a></h3>
+    <div class="row my-md-5 text-center">
+      {% for article in category_study%}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+            <p class="card-text">
+              {{ article.text|linebreaksbr|truncatechars:60  }}
+            </p>
+            <a href="#!" class="card-link">Card link</a>
+            <a href="#!" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h3 class=""><a href="#" class="">その他小ネタなど</a></h3>
+    <div class="row my-md-5 text-center">
+      {% for article in category_triviality%}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+            <p class="card-text">
+              {{ article.text|linebreaksbr|truncatechars:60  }}
+            </p>
+            <a href="#!" class="card-link">Card link</a>
+            <a href="#!" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+</div>
+
+
+
+
+<!-- <table class="table">
+    {% for article in category_study %}
+        <tr>
+            <td>{{ article.title }}</td>
+        </tr>
+    {% endfor %}
+    {% for article in category_school %}
+        <tr>
+            <td>{{ article.title }}</td>
+        </tr>
+    {% endfor %}
+    {% for article in category_work %}
+        <tr>
+            <td>{{ article.title }}</td>
+        </tr>
+    {% endfor %}
+    {% for article in category_life %}
+        <tr>
+            <td>{{ article.title }}</td>
+        </tr>
+    {% endfor %}
+    {% for article in category_love %}
+        <tr>
+            <td>{{ article.title }}</td>
+        </tr>
+    {% endfor %}
+    {% for article in category_triviality %}
+        <tr>
+            <td>{{ article.title }}</td>
+        </tr>
+    {% endfor %}
+</table> -->
+
+{% endblock %}

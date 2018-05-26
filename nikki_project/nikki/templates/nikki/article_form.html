@@ -1,0 +1,28 @@
+{% extends "nikki/base.html" %}
+
+{% block content %}
+<div class="container py-3">
+  <form class="" action="" method="POST">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>プロフィール</th>
+          <td>{{ user.nickname }} {{ user.age }} {{ user.gender }}</td>
+        </tr>
+        <!-- これより上がユーザー情報で登録されていた項目で、下がここで登録してもらいたい項目 -->
+        {% for field in form %}
+          <tr>
+            <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+            <td>{{ field }} {{ field.errors }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button type="submit" name="" class="btn btn-info">送信</button>
+    {% csrf_token %}
+  </form>
+</div>
+
+
+{% endblock %}
