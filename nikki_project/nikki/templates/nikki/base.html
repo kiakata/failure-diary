@@ -10,6 +10,7 @@
     <!-- css -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'nikki/common.css' %}"/>
+    {% block extracss %}{% endblock %}
 
     <title>ぼくたちの失敗日記</title>
 </head>
@@ -45,8 +46,8 @@
   <main>
     {% block content %}{% endblock %}
   </main>
-  <footer class="foot" id="foot">
-    <ul style="list-style: none;" class="aa">
+  <footer class="foot py-3 " id="foot">
+    <ul style="list-style: none;" class="">
       <li>ぼくたちの失敗日記とは</li>
       <li>ログイン/会員登録</li>
       <li>利用規約</li>

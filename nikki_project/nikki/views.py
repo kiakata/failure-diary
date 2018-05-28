@@ -178,3 +178,6 @@ def create_article(request, user_id):
 
 class DetailArticle(generic.DetailView):
     model = Article
+    # def get_articles(self, request):
+    #     context['articles'] = request.user.article_set.filter().order_by('-created_time')[:5]
+    #     return context
