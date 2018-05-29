@@ -16,12 +16,9 @@
 </section>
 <div class="container">
   <section class="category my-5">
-    <a href="#" class="mr-3" style="text-decoration:none;">日常</a>
-    <a href="#" class="mr-3" style="text-decoration:none;">仕事</a>
-    <a href="#" class="mr-3" style="text-decoration:none;">学校生活</a>
-    <a href="#" class="mr-3" style="text-decoration:none;">勉強</a>
-    <a href="#" class="mr-3" style="text-decoration:none;">恋愛</a>
-    <a href="#" style="text-decoration:none;">その他小ネタなど</a>
+    {% for category in category_list %}
+    <a href="{% url 'nikki:category' category.pk %}" class="mr-3" style="text-decoration:none;">{{ category }}</a>
+    {% endfor %}
   </section>
   <section class="work pb-5">
     <h3 class=""><a href="#" class="">日常</a></h3>

@@ -193,3 +193,13 @@ class UpdateArticle(generic.UpdateView):
 class DeleteArticle(generic.DeleteView):
     model = Article
     success_url = reverse_lazy("nikki:index")
+
+class CategoryView(generic.ListView):
+    model = Article
+    template_name = 'nikki/category.html'
+
+    def get_context_data(self, **kwargs):
+        category_pk = self.kwargs['pk']
+        context = super().get_context_data(**kwargs)
+        context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_time')
+        return context
