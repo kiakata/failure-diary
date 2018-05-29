@@ -1,0 +1,23 @@
+{% extends "nikki/base.html" %}
+{% load static %}
+{% block extracss %}<link rel="stylesheet" href="{% static 'nikki/article_detail.css' %}" />{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="col-12 text-center">
+    <h3>削除の確認</h3>
+    <p class="text-danger">以下のタイトルの記事を本当に削除しますか？</p>
+    <p class="title mb-0 py-3">{{ article.title }}</p>
+
+    <form method="post">
+    {% csrf_token %}
+     {{ form }}
+
+     <button type="submit" class="btn btn-danger">削除</button>
+     <a href="{% url 'nikki:detail_article' article.id %}" class="btn btn-success">キャンセル</a>
+
+   </form>
+
+  </div>
+</div>
+{% endblock %}

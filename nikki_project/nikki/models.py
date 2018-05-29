@@ -117,7 +117,7 @@ class Article(models.Model):
         return self.title
 
 class Comment(models.Model):
-    """"ブログのコメント"""
+    """ブログのコメント"""
 
     name = models.CharField('お名前', max_length=30, default='名無し')
     text = models.TextField('本文')

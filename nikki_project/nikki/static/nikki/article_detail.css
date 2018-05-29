@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+main {
+  background-color: rgba(255, 252, 153, 0.8);
+}
+
+.container {
+  background-color: white;
+}
+
+.title {
+  word-wrap:break-word;
+}
+
+.text {
+  word-wrap:break-word;
+}
+
+button>a {
+  color: white;
+  text-decoration: none;
+}
+
+button>a:hover {
+  color: white;
+}

@@ -18,6 +18,8 @@ from django.shortcuts import redirect, resolve_url
 from django.template.loader import get_template
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 class Top(generic.TemplateView):
@@ -178,3 +180,16 @@ def create_article(request, user_id):
 
 class DetailArticle(generic.DetailView):
     model = Article
+
+class UpdateArticle(generic.UpdateView):
+    model = Article
+    form_class = ArticleForm
+
+    def get_success_url(self):
+        article_pk = self.kwargs['pk']
+        url = reverse_lazy("nikki:detail", kwargs={"pk": article_pk})
+        return url
+
+class DeleteArticle(generic.DeleteView):
+    model = Article
+    success_url = reverse_lazy("nikki:index")

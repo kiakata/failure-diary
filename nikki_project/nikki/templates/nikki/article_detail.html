@@ -1,31 +1,37 @@
 {% extends "nikki/base.html" %}
+{% load static %}
+{% block extracss %}<link rel="stylesheet" href="{% static 'nikki/article_detail.css' %}" />{% endblock %}
 
 {% block content %}
-<div class="container py-3">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>ニックネー</th>
-        <td>{{ user.nickname }}</td>
-      </tr>
-      <tr>
-        <th>性別</th>
-        <td>{{ user.gender }}</td>
-      </tr>
-      <tr>
-        <th>年代</th>
-        <td>{{ user.age }}</td>
-      </tr>
-      <tr>
-        <th>タイトル</th>
-        <td>{{ article.title }}</td>
-      </tr>
-      <tr>
-        <th>本文</th>
-        <td>{{ article.text }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container py-5">
+  <h2 class="text-center font-weight-bold">{{ user.nickname }}の日記</h2>
+  <div class="row">
+    <div class="created_at col-3 col-md-2">
+      {{ article.created_time|date:"Y/n/d" }}
+    </div>
+    <div class="article col-12 col-md-7">
+      {% if request.user.id == object.user_id %}
+      <section class="post-edit mt-4">
+        <button type="button" class="btn btn-success mr-3" onclick="location.href='{% url 'nikki:update_article' article.id %}'">記事を編集する</button>
+        <button type="button" class="btn btn-danger" onclick="location.href='{% url 'nikki:delete_article' article.id %}'">記事を削除する</button>
+      </section>
+      {% endif %}
+      <h3 class="title text-center mt-5">{{ article.title }}</h3>
+      <div class="text py-3">
+        {{ article.text|linebreaksbr}}
+      </div>
 
+    </div>
+    <div class="infomation col-12 col-md-3 py-3 text-center">
+      <p class="profile mb-0 font-weight-bold">プロフィール</p>
+      <p class="mb-0">{{ user.nickname }}</p>
+      <p>{{ user.age }} {{ user.gender }}</p>
+      <p class="others mb-1 font-weight-bold">この著者の他の記事</p>
+      {% for article in request.user.article_set.all %}
+      <p class="mb-1"><a href="{% url 'nikki:detail_article' article.id %}">{{ article.title|truncatechars_html:10 }}</a></p>
+      {% endfor %}
+    </div>
 
+  </div>
+</div>
 {% endblock %}
