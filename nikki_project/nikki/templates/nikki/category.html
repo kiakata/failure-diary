@@ -1,0 +1,30 @@
+{% extends "nikki/base.html" %}
+
+{% block content %}
+<div class="container">
+  <section class="category my-5">
+    {% for category in category_list %}
+    <a href="{% url 'nikki:category' category.pk %}" class="mr-3" style="text-decoration:none;">{{ category }}</a>
+    {% endfor %}
+  </section>
+
+  <section>
+    <div class="row my-md-5 text-center">
+      {% for article in category_article %}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+            <p class="card-text">
+              {{ article.text|linebreaksbr|truncatechars:60  }}
+            </p>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}
