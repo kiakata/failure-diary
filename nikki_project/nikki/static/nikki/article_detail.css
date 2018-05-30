@@ -24,3 +24,7 @@ button>a {
 button>a:hover {
   color: white;
 }
+
+.comment {
+  border-top-style: ridge;
+}

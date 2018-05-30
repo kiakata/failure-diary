@@ -11,5 +11,6 @@ urlpatterns = [
     path('detail_article/<int:pk>', views.DetailArticle.as_view(), name='detail_article'),
     path('update_article/<int:pk>', views.UpdateArticle.as_view(), name='update_article'),
     path('delete_article/<int:pk>', views.DeleteArticle.as_view(), name='delete_article'),
-    path('category/<int:pk>/', views.CategoryView.as_view(), name='category')
+    path('category/<int:pk>/', views.CategoryView.as_view(), name='category'),
+    path('comment/<int:article_pk>', views.CommentView.as_view(), name='comment')
 ]

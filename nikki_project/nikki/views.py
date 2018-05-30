@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django.contrib.auth.views import (
@@ -6,9 +6,9 @@ from django.contrib.auth.views import (
 )
 from django.views import generic
 from .forms import (
-    LoginForm, UserCreateForm, UserUpdateForm, ArticleForm
+    LoginForm, UserCreateForm, UserUpdateForm, ArticleForm, CommentForm
     )
-from .models import Article, Category
+from .models import Article, Category, Comment
 
 
 from django.contrib.auth import get_user_model
@@ -148,12 +148,12 @@ class ArticleList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_study'] = Article.objects.filter(category=1).order_by('-created_time')[:5]
-        context['category_school'] = Article.objects.filter(category=2).order_by('-created_time')[:5]
-        context['category_work'] = Article.objects.filter(category=3).order_by('-created_time')[:5]
-        context['category_life'] = Article.objects.filter(category=4).order_by('-created_time')[:5]
-        context['category_love'] = Article.objects.filter(category=5).order_by('-created_time')[:5]
-        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_time')[:5]
+        context['category_study'] = Article.objects.filter(category=1).order_by('-created_at')[:6]
+        context['category_school'] = Article.objects.filter(category=2).order_by('-created_at')[:6]
+        context['category_work'] = Article.objects.filter(category=3).order_by('-created_at')[:6]
+        context['category_life'] = Article.objects.filter(category=4).order_by('-created_at')[:6]
+        context['category_love'] = Article.objects.filter(category=5).order_by('-created_at')[:6]
+        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_at')[:6]
         return context
 
 
@@ -203,3 +203,14 @@ class CategoryView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_time')
         return context
+
+class CommentView(generic.CreateView):
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        article_pk = self.kwargs['article_pk']
+        comment = form.save(commit=False)
+        comment.article = get_object_or_404(Article, pk=article_pk)
+        comment.save()
+        return redirect('nikki:detail_article', pk=article_pk)
