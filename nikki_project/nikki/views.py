@@ -7,7 +7,7 @@ from django.contrib.auth.views import (
 from django.views import generic
 from .forms import (
     LoginForm, UserCreateForm, UserUpdateForm, ArticleForm
-    )
+)
 from .models import Article, Category
 
 
@@ -19,7 +19,9 @@ from django.template.loader import get_template
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-# Create your views here.
+User = get_user_model()
+
+
 class Top(generic.TemplateView):
     template_name = 'register/top.html'
 
@@ -34,7 +36,6 @@ class Logout(LoginRequiredMixin, LogoutView):
     """ログアウトページ"""
     template_name = 'register/top.html'
 
-User = get_user_model()
 
 class UserCreate(generic.CreateView):
     """ユーザー仮登録"""
@@ -98,6 +99,7 @@ class UserCreateComplete(generic.TemplateView):
 
         raise Http404
 
+
 class OnlyYouMixin(UserPassesTestMixin):
     raise_exception = True
 
@@ -140,6 +142,7 @@ class Top(generic.TemplateView):
     #     article.save()
     #     return redirect('nikki:top')
 
+
 class ArticleList(generic.ListView):
     model = Article
     template_name = 'nikki/article_list'
@@ -155,8 +158,6 @@ class ArticleList(generic.ListView):
         return context
 
 
-
-
 def create_article(request, user_id):
     """日記投稿ページ"""
     # if this is a POST request we need to process the form data
@@ -168,13 +169,15 @@ def create_article(request, user_id):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('nikki:top')
+            return redirect('nikki:top')
+            # return HttpResponseRedirect('nikki:top')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ArticleForm()
 
     return render(request, 'nikki/article_form.html', {'form': form})
+
 
 class DetailArticle(generic.DetailView):
     model = Article
