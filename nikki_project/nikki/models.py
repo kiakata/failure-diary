@@ -120,7 +120,8 @@ class Article(models.Model):
 class Comment(models.Model):
     """ブログのコメント"""
 
-    name = models.CharField('お名前', max_length=30, default='名無し')
+    user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.PROTECT)
+    article = models.ForeignKey(Article, verbose_name='紐づく記事', on_delete=models.PROTECT)
     text = models.TextField('本文')
     article = models.ForeignKey(Article, verbose_name='紐づく記事', on_delete=models.PROTECT)
     created_at = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)

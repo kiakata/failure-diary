@@ -35,12 +35,17 @@
   <section class="container">
     <div class="row">
       <div class="col-8 offset-2">
+        {% if user.is_authenticated %}
         <a class="btn btn-info my-3" href="{% url 'nikki:comment' article.pk %}">コメントする</a>
+        {% endif %}
         {% for comment in article.comment_set.all %}
         <div class="comment py-3" style="border-top-style: groove;">
-          <h5 class="mb-1">{{ comment.name }}</h5>
+          <h5 class="mb-1">{{ comment.user_id }}</h5>
           <p class="text">{{ comment.text | linebreaksbr }}</p>
           <p class="font-weight-light mb-1">{{ comment.created_at }}</p>
+          {% if request.user.id == comment.user_id %}
+          <p>sakujosuru</p>
+          {% endif %}
           {% endfor %}
         </div>
       </div>
