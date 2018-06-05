@@ -35,10 +35,12 @@
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </section>
+    </section>
+
+    <section>
+      <h3 class=""><a href="#" class="my-0 py-0">仕事</a></h3>
 
   <section>
     <h3 class=""><a href="#" class="my-0 py-0">仕事</a></h3>
@@ -55,10 +57,9 @@
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </section>
+    </section>
 
   <section>
     <h3 class=""><a href="#" class="">学校生活</a></h3>
@@ -75,10 +76,9 @@
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </section>
+    </section>
 
   <section>
     <h3 class=""><a href="#" class="">恋愛</a></h3>
@@ -95,10 +95,9 @@
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </section>
+    </section>
 
   <section>
     <h3 class=""><a href="#" class="">勉強</a></h3>
@@ -115,10 +114,9 @@
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </section>
+    </section>
 
   <section>
     <h3 class=""><a href="#" class="">その他小ネタなど</a></h3>
@@ -135,47 +133,9 @@
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </section>
+    </section>
 
-</div>
-
-
-
-
-<!-- <table class="table">
-    {% for article in category_study %}
-        <tr>
-            <td>{{ article.title }}</td>
-        </tr>
-    {% endfor %}
-    {% for article in category_school %}
-        <tr>
-            <td>{{ article.title }}</td>
-        </tr>
-    {% endfor %}
-    {% for article in category_work %}
-        <tr>
-            <td>{{ article.title }}</td>
-        </tr>
-    {% endfor %}
-    {% for article in category_life %}
-        <tr>
-            <td>{{ article.title }}</td>
-        </tr>
-    {% endfor %}
-    {% for article in category_love %}
-        <tr>
-            <td>{{ article.title }}</td>
-        </tr>
-    {% endfor %}
-    {% for article in category_triviality %}
-        <tr>
-            <td>{{ article.title }}</td>
-        </tr>
-    {% endfor %}
-</table> -->
-
+  </div>
 {% endblock %}
