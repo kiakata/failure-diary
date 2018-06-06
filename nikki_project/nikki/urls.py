@@ -14,6 +14,7 @@ urlpatterns = [
     path('user_detail/<int:pk>/', views.DetailUser.as_view(), name='detail_user'),
     path('user_update/<int:pk>/', views.UpdateUser.as_view(), name='update_user'),
     # Article
+    # path('create_article/<int:user_id>', views.CreateArticle.as_view(), name='create_article'),
     path('create_article/<int:user_id>', views.create_article, name='create_article'),
     path('detail_article/<int:pk>', views.DetailArticle.as_view(), name='detail_article'),
     path('update_article/<int:pk>', views.UpdateArticle.as_view(), name='update_article'),

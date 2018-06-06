@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container py-5">
-  <h2 class="text-center font-weight-bold">{{ user.nickname }}の日記</h2>
+  <h2 class="text-center font-weight-bold">{{ article.user.nickname }}の日記</h2>
   <div class="row">
     <div class="created_at col-3 col-md-2">
       {{ article.created_time|date:"Y/n/d" }}
@@ -12,7 +12,7 @@
     <div class="article col-12 col-md-7">
       {% if request.user.id == object.user_id %}
       <section class="post-edit mt-4">
-        <button type="button" class="btn btn-success mr-3" onclick="location.href='{% url 'nikki:update_article' article.id %}'">記事を編集する</button>
+        <button type="button" class="btn btn-success mr-2" onclick="location.href='{% url 'nikki:update_article' article.id %}'">記事を編集する</button>
         <button type="button" class="btn btn-danger" onclick="location.href='{% url 'nikki:delete_article' article.id %}'">記事を削除する</button>
       </section>
       {% endif %}
@@ -24,10 +24,10 @@
     </div>
     <div class="infomation col-12 col-md-3 py-3 text-center">
       <p class="profile mb-0 font-weight-bold">プロフィール</p>
-      <p class="mb-0">{{ user.nickname }}</p>
-      <p>{{ user.age }} {{ user.gender }}</p>
-      <p class="others mb-1 font-weight-bold">この著者の他の記事</p>
-      {% for article in request.user.article_set.all %}
+      <p class="mb-0">{{ article.user.nickname }}</p>
+      <p>{{ article.user.agegroup }}</p>
+      <p class="others mb-1 font-weight-bold">この著者の記事</p>
+      {% for article in article.user.article_set.all %}
       <p class="mb-1"><a href="{% url 'nikki:detail_article' article.id %}">{{ article.title|truncatechars_html:10 }}</a></p>
       {% endfor %}
     </div>

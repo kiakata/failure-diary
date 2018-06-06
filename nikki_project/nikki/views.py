@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django.contrib.auth.views import (
@@ -141,23 +141,6 @@ class UpdateUser(OnlyYouMixin, generic.UpdateView):
 class Top(generic.TemplateView):
     template_name = 'nikki/top.html'
 
-# class CreateArticle(generic.CreateView):
-#     """日記投稿ページ"""
-#     model = Article
-#     template_name = 'nikki/article_form.html'
-#     form_class = ArticleForm
-#
-    # def form_valid(self, form):
-    #     user_id = self.kwargs['user_id']
-    #     article = form.save(commit=False)
-    #     category = category.objects.get(name=name)
-    #     artcle.category = category
-    #
-    #     article.user = get_object_or_404(User, pk=user_pk)
-    #     article.category = get_object_or_404(Category, pk=category_pk)
-    #     article.save()
-    #     return redirect('nikki:top')
-
 
 class ArticleList(generic.ListView):
     model = Article
@@ -165,12 +148,12 @@ class ArticleList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_study'] = Article.objects.filter(category=1).order_by('-created_time')[:4]
-        context['category_school'] = Article.objects.filter(category=2).order_by('-created_time')[:4]
-        context['category_work'] = Article.objects.filter(category=3).order_by('-created_time')[:4]
-        context['category_life'] = Article.objects.filter(category=4).order_by('-created_time')[:4]
-        context['category_love'] = Article.objects.filter(category=5).order_by('-created_time')[:4]
-        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_time')[:5]
+        context['category_study'] = Article.objects.filter(category=1).order_by('-created_time')[:6]
+        context['category_school'] = Article.objects.filter(category=2).order_by('-created_time')[:6]
+        context['category_work'] = Article.objects.filter(category=3).order_by('-created_time')[:6]
+        context['category_life'] = Article.objects.filter(category=4).order_by('-created_time')[:6]
+        context['category_love'] = Article.objects.filter(category=5).order_by('-created_time')[:6]
+        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_time')[:6]
         return context
 
 
@@ -178,23 +161,63 @@ def create_article(request, user_id):
     """
     日記投稿ページ
     """
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = ArticleForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return redirect('nikki:index')
-            # return HttpResponseRedirect('nikki:top')
+    model = Article
+    template_name = 'nikki/article_form.html'
+    user = get_object_or_404(User, pk=user_id)
+    posted_article_title = request.POST.get('title')
+    posted_article_text = request.POST.get('text')
+    posted_user_id = request.POST.get('user_id')
+    posted_category_id = request.POST.get('category_id')
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = ArticleForm()
+    form = ArticleForm(request.POST or None)
 
-    return render(request, 'nikki/article_form.html', {'form': form})
+    if request.method == 'POST' and form.is_valid():
+        p = Article(title=posted_article_title, text=posted_article_text, user_id=user_id, category_id=posted_category_id)
+        p.save()
+        return redirect('nikki:index')
+
+    context = {
+    'form':form
+    }
+    return render(request, 'nikki/article_form.html', context)
+
+
+class CreateArticle(generic.CreateView):
+    """
+    日記投稿ページ
+    """
+    model = Article
+    template_name = 'nikki/article_form.html'
+    form_class = ArticleForm
+
+    def form_valid(self, form):
+        user_id = self.kwargs['user_id']
+        article = form.save()
+
+        return redirect('nikki:index')
+
+
+# def create_article(request, user_id):
+#     """
+#     日記投稿ページ
+#     """
+#     # if this is a POST request we need to process the form data
+#     if request.method == 'POST':
+#         # create a form instance and populate it with data from the request:
+#         form = ArticleForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required
+#             # ...
+#             # redirect to a new URL:
+#             return redirect('nikki:index')
+#             # return HttpResponseRedirect('nikki:top')
+#
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = ArticleForm()
+#
+#     return render(request, 'nikki/article_form.html', {'form': form})
 
 
 class DetailArticle(generic.DetailView):
@@ -224,4 +247,5 @@ class CategoryView(generic.ListView):
         category_pk = self.kwargs['pk']
         context = super().get_context_data(**kwargs)
         context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_time')
+        context['category_name'] = Category.objects.get(pk=category_pk)
         return context
