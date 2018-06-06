@@ -52,13 +52,31 @@
     {% endblock %}
   </main>
 
-  <footer class="foot py-3 " id="foot">
-    <ul style="list-style: none;" class="">
-      <li>ぼくたちの失敗日記とは</li>
-      <li>ログイン/会員登録</li>
-      <li>利用規約</li>
-      <li>お問い合わせ</li>
-    </ul>
+  <footer class="foot py-4 px-5 " id="foot">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-3">
+          <ul style="list-style: none;" class="">
+            <li><a href="#" style="text-decoration: none; color:black">ぼくたちの失敗日記とは</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <ul style="list-style: none;" class="">
+            <li><a href="{% url 'nikki:login' %}" style="text-decoration: none; color:black">ログイン/会員登録</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <ul style="list-style: none;" class="">
+            <li><a href="#" style="text-decoration: none; color:black">利用規約</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <ul style="list-style: none;" class="">
+            <li><a href="#" style="text-decoration: none; color:black">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </footer>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -5,18 +5,18 @@
 {% block content %}
 {{ category_work.article }}
 <section class="">
-<div class="jumbotron">
-  <h2 class="display-5">失敗を日記に記して、一区切りつけませんか？</h2>
-  <hr class="my-2">
-  <p>自分のSNSアカウントに書くのはちょっと嫌だけど、このサイトだけのニックネームでなら書けるかも。</p>
-  <p class="lead">
-    {% if user.is_authenticated %}
-    <a class="btn btn-primary btn-lg" href="{% url 'nikki:create_article' user.pk %}" role="button">日記を書く</a>
-    {% else %}
-    <a class="btn btn-primary btn-lg" href="{% url 'nikki:login' %}" role="button">日記を書く</a>
-    {% endif %}
-  </p>
-</div>
+  <div class="jumbotron">
+    <h2 class="display-5">失敗を日記に記して、一区切りつけませんか？</h2>
+    <hr class="my-2">
+    <p>自分のSNSアカウントに書くのはちょっと嫌だけど、このサイトだけのニックネームでなら書いてみたいかも。</p>
+    <p class="lead">
+      {% if user.is_authenticated %}
+      <a class="btn btn-primary btn-lg" href="{% url 'nikki:create_article' user.pk %}" role="button">日記を書く</a>
+      {% else %}
+      <a class="btn btn-primary btn-lg" href="{% url 'nikki:login' %}" role="button">日記を書く</a>
+      {% endif %}
+    </p>
+  </div>
 </section>
 <div class="container">
   <section class="category my-5">
@@ -24,121 +24,131 @@
     <a href="{% url 'nikki:category' category.pk %}" class="mr-3" style="text-decoration:none;">{{ category }}</a>
     {% endfor %}
   </section>
-  <section class="work pb-5">
+
+  <section class="work pb-5 mb-3">
     <h3 class=""><a href="#" class="">日常</a></h3>
-    <div class="row my-md-5 text-center">
-      {% for article in category_life %}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+      <div class="row my-md-5 text-center">
+        {% for article in category_life %}
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+              <p class="card-text">
+                {{ article.text|linebreaksbr|truncatechars:60  }}
+              </p>
+              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+            </div>
           </div>
         </div>
         {% endfor %}
       </div>
-    </section>
+      <p class="text-right mr-5"><a href="{% url 'nikki:category' pk=4 %}">もっと見る</a></p>
+  </section>
 
-    <section>
-      <h3 class=""><a href="#" class="my-0 py-0">仕事</a></h3>
-
-  <section>
-    <h3 class=""><a href="#" class="my-0 py-0">仕事</a></h3>
-    <div class="row my-md-5 text-center">
-      {% for article in category_work%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+  <section class="mb-5">
+    <h3 class=""><a href="#" class=" py-0">仕事</a></h3>
+      <div class="row my-md-5 text-center">
+        {% for article in category_work%}
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+              <p class="card-text">
+                {{ article.text|linebreaksbr|truncatechars:60  }}
+              </p>
+              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+            </div>
           </div>
         </div>
         {% endfor %}
       </div>
+      <p class="text-right mr-5"><a href="{% url 'nikki:category' pk=3 %}">もっと見る</a></p>
     </section>
 
-  <section>
+  <section class="mb-5">
     <h3 class=""><a href="#" class="">学校生活</a></h3>
-    <div class="row my-md-5 text-center">
-      {% for article in category_school%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+      <div class="row my-md-5 text-center">
+        {% for article in category_school%}
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+              <p class="card-text">
+                {{ article.text|linebreaksbr|truncatechars:60  }}
+              </p>
+              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+            </div>
           </div>
         </div>
         {% endfor %}
       </div>
+      <p class="text-right mr-5"><a href="{% url 'nikki:category' pk=2 %}">もっと見る</a></p>
     </section>
 
-  <section>
+  <section class="mb-5">
     <h3 class=""><a href="#" class="">恋愛</a></h3>
-    <div class="row my-md-5 text-center">
-      {% for article in category_love%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+      <div class="row my-md-5 text-center">
+        {% for article in category_love%}
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+              <p class="card-text">
+                {{ article.text|linebreaksbr|truncatechars:60  }}
+              </p>
+              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+            </div>
           </div>
         </div>
         {% endfor %}
       </div>
+      <p class="text-right mr-5"><a href="{% url 'nikki:category' pk=5 %}">もっと見る</a></p>
     </section>
 
-  <section>
+  <section class="mb-5">
     <h3 class=""><a href="#" class="">勉強</a></h3>
-    <div class="row my-md-5 text-center">
+      <div class="row my-md-5 text-center">
       {% for article in category_study%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+              <p class="card-text">
+                {{ article.text|linebreaksbr|truncatechars:60  }}
+              </p>
+              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+            </div>
           </div>
         </div>
         {% endfor %}
       </div>
+      <p class="text-right mr-5"><a href="{% url 'nikki:category' pk=1 %}">もっと見る</a></p>
     </section>
 
   <section>
     <h3 class=""><a href="#" class="">その他小ネタなど</a></h3>
-    <div class="row my-md-5 text-center">
-      {% for article in category_triviality%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+      <div class="row my-md-5 text-center">
+        {% for article in category_triviality%}
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ article.created_time }}</h6>
+              <p class="card-text">
+                {{ article.text|linebreaksbr|truncatechars:60  }}
+              </p>
+              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+            </div>
           </div>
         </div>
         {% endfor %}
       </div>
+      <p class="text-right mr-5"><a href="{% url 'nikki:category' pk=6 %}">もっと見る</a></p>
     </section>
 
   </div>
