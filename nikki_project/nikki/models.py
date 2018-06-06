@@ -64,8 +64,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     email = models.EmailField(_('email address'), unique=True)
     nickname = models.CharField(_('ニックネーム'), max_length=50, blank=True)
-    age = models.CharField('年代', max_length=5, blank=False)
-    gender = models.CharField('性別', max_length=2, blank=True)
+    agegroup = models.CharField('年代', max_length=10, blank=False)
+    # gender = models.CharField('性別', max_length=2, blank=True)
+
+    AGEGROUPS = (('under10', '10歳未満'), ('10', '10代'), ('20', '20代'), ('30', '30代'),
+    ('40', '40代'), ('50', '50代'), ('60', '60代'), ('70', '70代'), ('over80', '80歳以上'))
+
 
     is_staff = models.BooleanField(
         _('staff status'),
