@@ -128,7 +128,9 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    """日記記事"""
+    """
+    日記記事
+    """
     title = models.CharField('タイトル', max_length=255, blank=False ,null=False)
     text = models.TextField('本文', max_length=1000, blank=False ,null=False)
     created_at = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)

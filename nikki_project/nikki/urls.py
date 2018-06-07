@@ -5,8 +5,6 @@ app_name = 'nikki'
 
 urlpatterns = [
     path('index', views.ArticleList.as_view(), name='index'),
-<<<<<<< HEAD
-=======
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
     # User
