@@ -40,11 +40,11 @@
         {% endif %}
         {% for comment in article.comment_set.all %}
         <div class="comment py-3" style="border-top-style: groove;">
-          <h5 class="mb-1">{{ comment.user_id }}</h5>
+          <p class="mb-1 font-weight-bold">{{ comment.user.nickname }} {{ comment.user.agegroup }}</p>
           <p class="text">{{ comment.text | linebreaksbr }}</p>
           <p class="font-weight-light mb-1">{{ comment.created_at }}</p>
           {% if request.user.id == comment.user_id %}
-          <p>sakujosuru</p>
+          <a href="{% url 'nikki:detail_comment' comment.pk %}" class="">編集/削除</a>
           {% endif %}
           {% endfor %}
         </div>

@@ -13,7 +13,7 @@
     {% csrf_token %}
      {{ form }}
 
-     <button type="submit" class="btn btn-danger">削除</button>
+     <button type="submit" class="btn btn-danger">削除する</button>
      <a href="{% url 'nikki:detail_article' article.id %}" class="btn btn-success">キャンセル</a>
 
    </form>
