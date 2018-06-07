@@ -9,6 +9,7 @@ from .forms import (
     LoginForm, CreateUserForm, UpdateUserForm, ArticleForm, CommentForm
 )
 from .models import Article, Category, Comment
+from django.db.models import Q
 
 
 from django.contrib.auth import get_user_model, login
@@ -138,8 +139,19 @@ class UpdateUser(OnlyYouMixin, generic.UpdateView):
         return resolve_url('nikki:detail_user', pk=self.kwargs['pk'])
 
 
-class Top(generic.TemplateView):
-    template_name = 'nikki/top.html'
+class SearchList(generic.ListView):
+    model = Article
+    template_name = 'nikki/search_list.html'
+
+    def get_queryset(self):
+        queryset = Article.objects.order_by('-created_at')
+        keyword = self.request.GET.get('keyword')
+        if keyword:
+            queryset = queryset.filter(
+            Q(title__icontains=keyword) | Q(text__icontains=keyword)
+            )
+        return queryset
+
 
 
 class ArticleList(generic.ListView):
@@ -208,7 +220,7 @@ class CategoryView(generic.ListView):
     def get_context_data(self, **kwargs):
         category_pk = self.kwargs['pk']
         context = super().get_context_data(**kwargs)
-        context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_time')
+        context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_at')
         context['category_name'] = Category.objects.get(pk=category_pk)
         return context
 
