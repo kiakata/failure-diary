@@ -11,7 +11,7 @@ from .forms import (
 from .models import Article, Category, Comment
 
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, resolve_url
@@ -24,34 +24,39 @@ from django.urls import reverse_lazy
 User = get_user_model()
 
 
-class Top(generic.TemplateView):
-    template_name = 'register/top.html'
-
-
 class Login(LoginView):
-    """ログインページ"""
+    """
+    ログインページ
+    """
     form_class = LoginForm
-    template_name = 'register/login.html'
+    template_name = 'nikki/login.html'
 
 
 class Logout(LoginRequiredMixin, LogoutView):
-    """ログアウトページ"""
-    template_name = 'register/top.html'
+    """
+    ログアウトページ
+    """
+    template_name = 'nikki/article_list.html'
 
 
-class UserCreate(generic.CreateView):
-    """ユーザー仮登録"""
-    template_name = 'register/user_create.html'
-    form_class = UserCreateForm
+class CreateUser(generic.CreateView):
+    """
+    ユーザー仮登録
+    """
+    template_name = 'nikki/user_create.html'
+    form_class = CreateUserForm
 
     def form_valid(self, form):
-        """仮登録と本登録用メールの発行."""
-        # 仮登録と本登録の切り替えは、is_active属性を使うと簡単です。
+        """
+        仮登録と本登録用メールの発行
+        """
+        # 仮登録と本登録の切り替えは、is_active属性を使う。
         # 退会処理も、is_activeをFalseにするだけにしておくと捗ります。
         user = form.save(commit=False)
         user.is_active = False
         user.save()
 
+        # アクティベーションURLの送付
         current_site = get_current_site(self.request)
         domain = current_site.domain
         context = {
@@ -63,27 +68,33 @@ class UserCreate(generic.CreateView):
         }
 
         # テンプレートを使ってメールを組み立てる
-        subject_template = get_template('register/mail_template/create/subject.txt')
+        subject_template = get_template('nikki/mail_templates/create/subject.txt')
         subject = subject_template.render(context)
 
-        message_template = get_template('register/mail_template/create/message.txt')
+        message_template = get_template('nikki/mail_templates/create/message.txt')
         message = message_template.render(context)
 
         user.email_user(subject, message)  # ユーザーのメール送信メソッド
-        return redirect('register:user_create_done')
+        return redirect('nikki:create_user_done')
 
 
-class UserCreateDone(generic.TemplateView):
-    """ユーザー仮登録完了"""
-    template_name = 'register/user_create_done.html'
+class CreateUserDone(generic.TemplateView):
+    """
+    ユーザー仮登録完了
+    """
+    template_name = 'nikki/user_create_done.html'
 
 
-class UserCreateComplete(generic.TemplateView):
-    """メール内URLアクセス後のユーザー本登録"""
-    template_name = 'register/user_create_complete.html'
+class CreateUserComplete(generic.TemplateView):
+    """
+    メール内URLアクセス後のユーザー本登録
+    """
+    template_name = 'nikki/user_create_complete.html'
 
     def get(self, request, **kwargs):
-        """uid、tokenが正しければ本登録."""
+        """
+        uid、tokenが正しければ本登録
+        """
         token = kwargs.get('token')
         uidb64 = kwargs.get('uidb64')
         try:
@@ -97,6 +108,9 @@ class UserCreateComplete(generic.TemplateView):
         else:
             user.is_active = True
             user.save()
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user)
+
             return super().get(request, **kwargs)
 
         raise Http404
@@ -110,39 +124,22 @@ class OnlyYouMixin(UserPassesTestMixin):
         return user.pk == self.kwargs['pk'] or user.is_superuser
 
 
-class UserDetail(OnlyYouMixin, generic.DetailView):
+class DetailUser(OnlyYouMixin, generic.DetailView):
     model = User
-    template_name = 'register/user_detail.html'
+    template_name = 'nikki/user_detail.html'
 
 
-class UserUpdate(OnlyYouMixin, generic.UpdateView):
+class UpdateUser(OnlyYouMixin, generic.UpdateView):
     model = User
-    form_class = UserUpdateForm
-    template_name = 'register/user_form.html'
+    form_class = UpdateUserForm
+    template_name = 'nikki/user_form.html'
 
     def get_success_url(self):
-        return resolve_url('register:user_detail', pk=self.kwargs['pk'])
+        return resolve_url('nikki:detail_user', pk=self.kwargs['pk'])
 
 
 class Top(generic.TemplateView):
     template_name = 'nikki/top.html'
-
-# class CreateArticle(generic.CreateView):
-#     """日記投稿ページ"""
-#     model = Article
-#     template_name = 'nikki/article_form.html'
-#     form_class = ArticleForm
-#
-    # def form_valid(self, form):
-    #     user_id = self.kwargs['user_id']
-    #     article = form.save(commit=False)
-    #     category = category.objects.get(name=name)
-    #     artcle.category = category
-    #
-    #     article.user = get_object_or_404(User, pk=user_pk)
-    #     article.category = get_object_or_404(Category, pk=category_pk)
-    #     article.save()
-    #     return redirect('nikki:top')
 
 
 class ArticleList(generic.ListView):
@@ -151,38 +148,81 @@ class ArticleList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_study'] = Article.objects.filter(category=1).order_by('-created_at')[:6]
-        context['category_school'] = Article.objects.filter(category=2).order_by('-created_at')[:6]
-        context['category_work'] = Article.objects.filter(category=3).order_by('-created_at')[:6]
-        context['category_life'] = Article.objects.filter(category=4).order_by('-created_at')[:6]
-        context['category_love'] = Article.objects.filter(category=5).order_by('-created_at')[:6]
-        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_at')[:6]
+        context['category_study'] = Article.objects.filter(category=1).order_by('-created_time')[:6]
+        context['category_school'] = Article.objects.filter(category=2).order_by('-created_time')[:6]
+        context['category_work'] = Article.objects.filter(category=3).order_by('-created_time')[:6]
+        context['category_life'] = Article.objects.filter(category=4).order_by('-created_time')[:6]
+        context['category_love'] = Article.objects.filter(category=5).order_by('-created_time')[:6]
+        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_time')[:6]
         return context
 
 
 def create_article(request, user_id):
-    """日記投稿ページ"""
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = ArticleForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return redirect('nikki:top')
-            # return HttpResponseRedirect('nikki:top')
+    """
+    日記投稿ページ
+    """
+    model = Article
+    template_name = 'nikki/article_form.html'
+    user = get_object_or_404(User, pk=user_id)
+    posted_article_title = request.POST.get('title')
+    posted_article_text = request.POST.get('text')
+    posted_user_id = request.POST.get('user_id')
+    posted_category_id = request.POST.get('category_id')
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = ArticleForm()
+    form = ArticleForm(request.POST or None)
 
-    return render(request, 'nikki/article_form.html', {'form': form})
+    if request.method == 'POST' and form.is_valid():
+        p = Article(title=posted_article_title, text=posted_article_text, user_id=user_id, category_id=posted_category_id)
+        p.save()
+        return redirect('nikki:index')
+
+    context = {
+    'form':form
+    }
+    return render(request, 'nikki/article_form.html', context)
+
+
+class CreateArticle(generic.CreateView):
+    """
+    日記投稿ページ
+    """
+    model = Article
+    template_name = 'nikki/article_form.html'
+    form_class = ArticleForm
+
+    def form_valid(self, form):
+        user_id = self.kwargs['user_id']
+        article = form.save()
+
+        return redirect('nikki:index')
+
+
+# def create_article(request, user_id):
+#     """
+#     日記投稿ページ
+#     """
+#     # if this is a POST request we need to process the form data
+#     if request.method == 'POST':
+#         # create a form instance and populate it with data from the request:
+#         form = ArticleForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required
+#             # ...
+#             # redirect to a new URL:
+#             return redirect('nikki:index')
+#             # return HttpResponseRedirect('nikki:top')
+#
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = ArticleForm()
+#
+#     return render(request, 'nikki/article_form.html', {'form': form})
 
 
 class DetailArticle(generic.DetailView):
     model = Article
+
 
 class UpdateArticle(generic.UpdateView):
     model = Article
@@ -193,9 +233,11 @@ class UpdateArticle(generic.UpdateView):
         url = reverse_lazy("nikki:detail", kwargs={"pk": article_pk})
         return url
 
+
 class DeleteArticle(generic.DeleteView):
     model = Article
     success_url = reverse_lazy("nikki:index")
+
 
 class CategoryView(generic.ListView):
     model = Article
@@ -205,6 +247,7 @@ class CategoryView(generic.ListView):
         category_pk = self.kwargs['pk']
         context = super().get_context_data(**kwargs)
         context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_time')
+        context['category_name'] = Category.objects.get(pk=category_pk)
         return context
 
 def create_comment(request, article_id):

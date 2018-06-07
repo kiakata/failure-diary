@@ -1,0 +1,22 @@
+{% extends "nikki/base.html" %}
+{% block content %}
+<div class="container py-3">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>ニックネーム</th>
+        <td>{{ user.nickname }}</td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td>{{ user.email }}</td>
+      </tr>
+      <tr>
+        <th>年代</th>
+        <td>{{ user.agegroup }}代</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="{% url 'nikki:update_user' user.pk %}" class="btn btn-info">編集する</a>
+</div>
+{% endblock %}
