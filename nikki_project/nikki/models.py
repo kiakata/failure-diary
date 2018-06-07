@@ -123,7 +123,6 @@ class Comment(models.Model):
     user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.PROTECT)
     article = models.ForeignKey(Article, verbose_name='紐づく記事', on_delete=models.PROTECT)
     text = models.TextField('本文')
-    article = models.ForeignKey(Article, verbose_name='紐づく記事', on_delete=models.PROTECT)
     created_at = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)
 

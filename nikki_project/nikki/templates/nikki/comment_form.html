@@ -12,7 +12,6 @@
       {{ field.errors }}
     </div>
     {% endfor %}
-    <input type="hidden" name="comment.user_id" value="request.user.id">
     {% csrf_token %}
     <button type="submit" class="btn btn-info">送信</button>
   </form>

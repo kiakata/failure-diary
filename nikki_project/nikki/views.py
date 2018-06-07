@@ -204,13 +204,24 @@ class CategoryView(generic.ListView):
         context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_time')
         return context
 
-class CommentView(generic.CreateView):
+def create_comment(request, article_id):
+    """
+    コメント投稿ページ
+    """
     model = Comment
-    form_class = CommentForm
+    template_name = 'nikki/comment_form.html'
+    article = get_object_or_404(Article, pk=article_id)
+    posted_user_id = request.user.id
+    posted_comment_text = request.POST.get('text')
 
-    def form_valid(self, form):
-        article_pk = self.kwargs['article_pk']
-        comment = form.save(commit=False)
-        comment.article = get_object_or_404(Article, pk=article_pk)
-        comment.save()
-        return redirect('nikki:detail_article', pk=article_pk)
+    form = CommentForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        p = Comment(article_id=article_id, user_id=posted_user_id, text=posted_comment_text)
+        p.save()
+        return redirect('nikki:detail_article', pk=article_id )
+
+    context = {
+    'form':form
+    }
+    return render(request, 'nikki/article_form.html', context)
