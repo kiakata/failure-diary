@@ -192,7 +192,7 @@ class UpdateArticle(generic.UpdateView):
 
     def get_success_url(self):
         article_pk = self.kwargs['pk']
-        url = reverse_lazy("nikki:detail", kwargs={"pk": article_pk})
+        url = reverse_lazy("nikki:detail_article", kwargs={"pk": article_pk})
         return url
 
 
@@ -233,3 +233,32 @@ def create_comment(request, article_id):
     'form':form
     }
     return render(request, 'nikki/article_form.html', context)
+
+
+class DetailComment(generic.DetailView):
+    model = Comment
+
+
+class UpdateComment(generic.UpdateView):
+    model = Comment
+    form_class = CommentForm
+
+    def get_success_url(self):
+        comment_pk = self.kwargs['pk']
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        article_id = comment.article_id
+        url = reverse_lazy("nikki:detail_article", kwargs={"pk": article_id})
+        return url
+
+
+class DeleteComment(generic.DeleteView):
+    model = Comment
+
+    def get_success_url(self):
+        comment_pk = self.kwargs['pk']
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        article_id = comment.article_id
+        url = reverse_lazy("nikki:detail_article", kwargs={"pk": article_id})
+        return url
+
+
