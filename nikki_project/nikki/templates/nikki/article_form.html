@@ -8,7 +8,7 @@
       <tbody>
         <tr>
           <th>プロフィール</th>
-          <td>{{ user.nickname }} {{ user.age }} {{ user.gender }}</td>
+          <td><span class="font-weight-bold">{{ user.nickname }}</span> ： {{ user.agegroup }}代</td>
         </tr>
         <!-- これより上がユーザー情報で登録されていた項目で、下がここで登録してもらいたい項目 -->
         {% for field in form %}
@@ -20,8 +20,46 @@
       </tbody>
     </table>
 
-    <button type="submit" name="" class="btn btn-info">送信</button>
+    <section class="container text-center pb-4">
+      <div class="row">
+        {% load static %}
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【１】</p>
+          <img border="0" src="{% static 'nikki/images/level1.png' %}" width="128" height="128" alt="イラスト1">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【２】</p>
+          <img border="0" src="{% static 'nikki/images/level2.png' %}" width="128" height="128" alt="イラスト2">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【３】</p>
+          <img border="0" src="{% static 'nikki/images/level3.png' %}" width="128" height="128" alt="イラスト3">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【４】</p>
+          <img border="0" src="{% static 'nikki/images/level4.png' %}" width="128" height="128" alt="イラスト4">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【５】</p>
+          <img border="0" src="{% static 'nikki/images/level5.png' %}" width="128" height="128" alt="イラスト5">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【６】</p>
+          <img border="0" src="{% static 'nikki/images/level6.png' %}" width="128" height="128" alt="イラスト6">
+        </div>
+      </div>
+    </section>
+
+  <div class="text-right mx-5">
+    <button type="submit" name="" class="btn btn-info btn-lg">送信</button>
     {% csrf_token %}
+  </div>
+
   </form>
 </div>
 
