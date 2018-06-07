@@ -180,11 +180,12 @@ def create_article(request, user_id):
     posted_article_text = request.POST.get('text')
     posted_user_id = request.POST.get('user_id')
     posted_category_id = request.POST.get('category_id')
+    posted_failure_image = request.POST.get('failure_image')
 
     form = ArticleForm(request.POST or None)
 
     if request.method == 'POST' and form.is_valid():
-        p = Article(title=posted_article_title, text=posted_article_text, user_id=user_id, category_id=posted_category_id)
+        p = Article(title=posted_article_title, text=posted_article_text, user_id=user_id, category_id=posted_category_id, failure_image=posted_failure_image)
         p.save()
         return redirect('nikki:index')
 

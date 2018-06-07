@@ -137,6 +137,9 @@ class Article(models.Model):
     updated_at = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)
     user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.PROTECT)
     category = models.ForeignKey(Category, verbose_name='カテゴリー名', on_delete=models.PROTECT)
+    failure_image = models.IntegerField('失敗の画像イメージ', blank=False, null=True)
+
+    IMAGES = ((0, '該当なし'), (1, '【１】'), (2, '【２】'), (3, '【３】'), (4, '【４】'), (5, '【５】'), (6, '【６】'), )
 
     def __str__(self):
         return self.title
