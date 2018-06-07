@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django.contrib.auth.views import (
@@ -6,9 +6,15 @@ from django.contrib.auth.views import (
 )
 from django.views import generic
 from .forms import (
+<<<<<<< HEAD
     LoginForm, UserCreateForm, UserUpdateForm, ArticleForm
 )
 from .models import Article, Category
+=======
+    LoginForm, UserCreateForm, UserUpdateForm, ArticleForm, CommentForm
+    )
+from .models import Article, Category, Comment
+>>>>>>> remotes/origin/feature/3-create_comment_pages
 
 
 from django.contrib.auth import get_user_model
@@ -151,12 +157,12 @@ class ArticleList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_study'] = Article.objects.filter(category=1).order_by('-created_time')[:5]
-        context['category_school'] = Article.objects.filter(category=2).order_by('-created_time')[:5]
-        context['category_work'] = Article.objects.filter(category=3).order_by('-created_time')[:5]
-        context['category_life'] = Article.objects.filter(category=4).order_by('-created_time')[:5]
-        context['category_love'] = Article.objects.filter(category=5).order_by('-created_time')[:5]
-        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_time')[:5]
+        context['category_study'] = Article.objects.filter(category=1).order_by('-created_at')[:6]
+        context['category_school'] = Article.objects.filter(category=2).order_by('-created_at')[:6]
+        context['category_work'] = Article.objects.filter(category=3).order_by('-created_at')[:6]
+        context['category_life'] = Article.objects.filter(category=4).order_by('-created_at')[:6]
+        context['category_love'] = Article.objects.filter(category=5).order_by('-created_at')[:6]
+        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_at')[:6]
         return context
 
 
@@ -206,3 +212,25 @@ class CategoryView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_time')
         return context
+
+def create_comment(request, article_id):
+    """
+    コメント投稿ページ
+    """
+    model = Comment
+    template_name = 'nikki/comment_form.html'
+    article = get_object_or_404(Article, pk=article_id)
+    posted_user_id = request.user.id
+    posted_comment_text = request.POST.get('text')
+
+    form = CommentForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        p = Comment(article_id=article_id, user_id=posted_user_id, text=posted_comment_text)
+        p.save()
+        return redirect('nikki:detail_article', pk=article_id )
+
+    context = {
+    'form':form
+    }
+    return render(request, 'nikki/article_form.html', context)

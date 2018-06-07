@@ -117,19 +117,18 @@ class Category(models.Model):
     """
     name = models.CharField('カテゴリ名', max_length=10)
     created_at = models.DateTimeField('作成日', default=timezone.now)
+    updated_at = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
 class Article(models.Model):
-    """
-    日記記事
-    """
-    title = models.CharField('タイトル', max_length=255, blank=False, null=False)
-    text = models.TextField('本文', max_length=1000, blank=False, null=False)
-    created_time = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)
-    updated_time = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)
+    """日記記事"""
+    title = models.CharField('タイトル', max_length=255, blank=False ,null=False)
+    text = models.TextField('本文', max_length=1000, blank=False ,null=False)
+    created_at = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)
     user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.PROTECT)
     category = models.ForeignKey(Category, verbose_name='カテゴリー名', on_delete=models.PROTECT)
 
@@ -137,14 +136,17 @@ class Article(models.Model):
         return self.title
 
 
+<<<<<<< HEAD
 class Comment(models.Model):
     """"
     ブログのコメント
     """
-    name = models.CharField('お名前', max_length=30, default='名無し')
     text = models.TextField('本文')
+    user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.PROTECT)
     article = models.ForeignKey(Article, verbose_name='紐づく記事', on_delete=models.PROTECT)
-    created_time = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)
+    text = models.TextField('本文')
+    created_at = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.text[:10]

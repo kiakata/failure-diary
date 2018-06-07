@@ -79,7 +79,12 @@ class ArticleForm(forms.ModelForm):
 
 
 ########### コメント投稿 ###########
-class CreateCommentForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'text')
+        fields = ('text',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
