@@ -136,7 +136,6 @@ class Article(models.Model):
         return self.title
 
 
-<<<<<<< HEAD
 class Comment(models.Model):
     """"
     ブログのコメント

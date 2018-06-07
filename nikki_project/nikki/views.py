@@ -6,15 +6,9 @@ from django.contrib.auth.views import (
 )
 from django.views import generic
 from .forms import (
-<<<<<<< HEAD
-    LoginForm, UserCreateForm, UserUpdateForm, ArticleForm
-)
-from .models import Article, Category
-=======
     LoginForm, UserCreateForm, UserUpdateForm, ArticleForm, CommentForm
-    )
+)
 from .models import Article, Category, Comment
->>>>>>> remotes/origin/feature/3-create_comment_pages
 
 
 from django.contrib.auth import get_user_model
