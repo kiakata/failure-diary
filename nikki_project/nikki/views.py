@@ -194,6 +194,10 @@ class PasswordResetComplete(PasswordResetCompleteView):
     template_name = 'nikki/password_reset_complete.html'
 
 
+class AboutView(generic.TemplateView):
+    template_name = 'nikki/about.html'
+
+
 class SearchList(generic.ListView):
     model = Article
     template_name = 'nikki/search_list.html'

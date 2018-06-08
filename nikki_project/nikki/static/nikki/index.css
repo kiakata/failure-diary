@@ -13,14 +13,14 @@ main {
 }
 
 .category {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .post {
   background-color: white;
   box-shadow: rgba(0,0,0,0.1) 0px 1px 1px 0px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   overflow:hidden;
 }
 
