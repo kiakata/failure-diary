@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django.contrib.auth.views import (
-    LoginView, LogoutView
+    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView,
+    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView,
+    PasswordResetCompleteView
 )
 from django.views import generic
 from .forms import (
-    LoginForm, CreateUserForm, UpdateUserForm, ArticleForm, CommentForm
+    LoginForm, CreateUserForm, UpdateUserForm, MyPasswordChangeForm,
+    MyPasswordResetForm, MySetPasswordForm, ArticleForm, CommentForm
 )
 from .models import Article, Category, Comment
 from django.db.models import Q
@@ -139,6 +142,58 @@ class UpdateUser(OnlyYouMixin, generic.UpdateView):
         return resolve_url('nikki:detail_user', pk=self.kwargs['pk'])
 
 
+class DeleteUser(OnlyYouMixin, generic.DeleteView):
+    model = User
+    success_url = reverse_lazy("nikki:index")
+
+
+class PasswordChange(PasswordChangeView):
+    """
+    パスワード変更ビュー
+    """
+    form_class = MyPasswordChangeForm
+    success_url = reverse_lazy('nikki:password_change_done')
+    template_name = 'nikki/password_change.html'
+
+
+class PasswordChangeDone(PasswordChangeDoneView):
+    template_name = 'nikki/password_change_done.html'
+
+
+class PasswordReset(PasswordResetView):
+    """
+    パスワード変更用URLの送付ページ
+    """
+    subject_template_name = 'nikki/mail_templates/reset/subject.txt'
+    email_template_name = 'nikki/mail_templates/reset/message.txt'
+    template_name = 'nikki/password_reset_form.html'
+    form_class = MyPasswordResetForm
+    success_url = reverse_lazy('nikki:password_reset_done')
+
+
+class PasswordResetDone(PasswordResetDoneView):
+    """
+    パスワード変更用URLを送りましたページ
+    """
+    template_name = 'nikki/password_reset_done.html'
+
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    """
+    新パスワード入力ページ
+    """
+    form_class = MySetPasswordForm
+    success_url = reverse_lazy('nikki:password_reset_complete')
+    template_name = 'nikki/password_reset_confirm.html'
+
+
+class PasswordResetComplete(PasswordResetCompleteView):
+    """
+    新パスワード設定しましたページ
+    """
+    template_name = 'nikki/password_reset_complete.html'
+
+
 class SearchList(generic.ListView):
     model = Article
     template_name = 'nikki/search_list.html'
@@ -151,7 +206,6 @@ class SearchList(generic.ListView):
             Q(title__icontains=keyword) | Q(text__icontains=keyword)
             )
         return queryset
-
 
 
 class ArticleList(generic.ListView):

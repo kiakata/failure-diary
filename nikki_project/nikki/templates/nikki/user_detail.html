@@ -17,6 +17,23 @@
       </tr>
     </tbody>
   </table>
-  <a href="{% url 'nikki:update_user' user.pk %}" class="btn btn-info">編集する</a>
+
+  <div class="my-3">
+    <a href="{% url 'nikki:update_user' user.pk %}" class="btn btn-info mr-5">編集する</a>
+  </div>
+  <a href="{% url 'nikki:password_change' %}" style="color:grey;">パスワード変更</a>
+  <a href="{% url 'nikki:delete_user' user.pk %}" class="ml-5" style="color:grey;">退会希望の方はこちら</a>
+
+  <section class="mt-5">
+    <p class="font-weight-bold mb-2">今までに投稿した日記</p>
+    <div class="row">
+      {% for article in user.article_set.all %}
+      <div class="col-4 col-md-3 col-lg-2">
+        <p class="my-1"><a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:10 }}</a></p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
 </div>
 {% endblock %}

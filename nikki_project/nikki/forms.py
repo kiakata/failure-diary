@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import (
-    AuthenticationForm, UserCreationForm
+    AuthenticationForm, UserCreationForm, PasswordChangeForm,
+    PasswordResetForm, SetPasswordForm
 )
 from django.contrib.auth import get_user_model
 from .models import Article, Comment, Category, User
@@ -15,8 +16,9 @@ def info(msg):
 
 
 class LoginForm(AuthenticationForm):
-    """ログインフォーム"""
-
+    """
+    ログインフォーム
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
@@ -25,8 +27,9 @@ class LoginForm(AuthenticationForm):
 
 
 class CreateUserForm(UserCreationForm):
-    """ユーザー登録用フォーム"""
-
+    """
+    ユーザー登録用フォーム
+    """
     class Meta:
         model = User
         fields = ('email', 'nickname', 'agegroup')
@@ -36,16 +39,16 @@ class CreateUserForm(UserCreationForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
-
     agegroup = forms.ChoiceField(label='年代', choices=User.AGEGROUPS)
 
 
 class UpdateUserForm(forms.ModelForm):
-    """ユーザー情報更新フォーム"""
-
+    """
+    ユーザー情報更新フォーム
+    """
     class Meta:
         model = User
-        fields = ('nickname', 'agegroup',)
+        fields = ('email', 'nickname', 'agegroup',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -53,13 +56,42 @@ class UpdateUserForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
 
     agegroup = forms.ChoiceField(label='年代' ,choices=User.AGEGROUPS)
-    # 性別 = forms.ChoiceField(choices=GENDERS)
 
 
-########## 記事投稿#############
+class MyPasswordChangeForm(PasswordChangeForm):
+    """
+    パスワード変更フォーム
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class MyPasswordResetForm(PasswordResetForm):
+    """
+    パスワード忘れたときのフォーム
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class MySetPasswordForm(SetPasswordForm):
+    """
+    パスワード再設定用フォーム(パスワード忘れて再設定)
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+
 class ArticleForm(forms.ModelForm):
-    """Article投稿フォーム"""
-
+    """
+    Article投稿フォーム
+    """
     class Meta:
         model = Article
         fields = ('category_id', 'title', 'text', 'failure_image')
@@ -77,8 +109,10 @@ class ArticleForm(forms.ModelForm):
     failure_image = forms.ChoiceField(label='画像選択', choices=Article.IMAGES)
 
 
-########### コメント投稿 ###########
 class CommentForm(forms.ModelForm):
+    """
+    コメント投稿フォーム
+    """
     class Meta:
         model = Comment
         fields = ('text',)
