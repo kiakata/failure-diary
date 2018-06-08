@@ -1,6 +1,8 @@
 {% extends "nikki/base.html" %}
 {% load static %}
-{% block extracss %}<link rel="stylesheet" href="{% static 'nikki/index.css' %}">{% endblock %}
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'nikki/index.css' %}">
+{% endblock %}
 
 {% block content %}
 {{ category_work.article }}
