@@ -26,8 +26,8 @@ urlpatterns = [
     path('detail_article/<int:pk>', views.DetailArticle.as_view(), name='detail_article'),
     path('update_article/<int:pk>', views.UpdateArticle.as_view(), name='update_article'),
     path('delete_article/<int:pk>', views.DeleteArticle.as_view(), name='delete_article'),
-    # Comment
     path('category/<int:pk>/', views.CategoryView.as_view(), name='category'),
+    # Comment
     path('comment/<int:article_id>', views.create_comment, name='comment'),
     path('detail_comment/<int:pk>', views.DetailComment.as_view(), name='detail_comment'),
     path('update_comment/<int:pk>', views.UpdateComment.as_view(), name='update_comment'),
