@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django.contrib.auth.views import (
-    LoginView, LogoutView
+    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 )
 from django.views import generic
 from .forms import (
-    LoginForm, CreateUserForm, UpdateUserForm, ArticleForm, CommentForm
+    LoginForm, CreateUserForm, UpdateUserForm, MyPasswordChangeForm, ArticleForm, CommentForm
 )
 from .models import Article, Category, Comment
 from django.db.models import Q
@@ -142,6 +142,19 @@ class UpdateUser(OnlyYouMixin, generic.UpdateView):
 class DeleteUser(OnlyYouMixin, generic.DeleteView):
     model = User
     success_url = reverse_lazy("nikki:index")
+
+
+class PasswordChange(PasswordChangeView):
+    """
+    パスワード変更ビュー
+    """
+    form_class = MyPasswordChangeForm
+    success_url = reverse_lazy('nikki:password_change_done')
+    template_name = 'nikki/password_change.html'
+
+
+class PasswordChangeDone(PasswordChangeDoneView):
+    template_name = 'nikki/password_change_done.html'
 
 
 class SearchList(generic.ListView):

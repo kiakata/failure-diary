@@ -17,8 +17,12 @@
       </tr>
     </tbody>
   </table>
-  <a href="{% url 'nikki:update_user' user.pk %}" class="btn btn-info mr-5">編集する</a>
-  <a href="{% url 'nikki:delete_user' user.pk %}" class="ml-5">退会希望の方はこちら</a>
+
+  <div class="my-3">
+    <a href="{% url 'nikki:update_user' user.pk %}" class="btn btn-info mr-5">編集する</a>
+  </div>
+  <a href="{% url 'nikki:password_change' %}" style="color:grey;">パスワード変更</a>
+  <a href="{% url 'nikki:delete_user' user.pk %}" class="ml-5" style="color:grey;">退会希望の方はこちら</a>
 
   <section class="mt-4">
     <p>今までの投稿した日記</p>
