@@ -17,6 +17,10 @@ urlpatterns = [
     path('user_delete/<int:pk>/', views.DeleteUser.as_view(), name='delete_user'),
     path('password_change/', views.PasswordChange.as_view(), name='password_change'),
     path('password_change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
+    path('password_reset/', views.PasswordReset.as_view(), name='password_reset'),
+    path('password_reset/done/', views.PasswordResetDone.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', views.PasswordResetConfirm.as_view(), name='password_reset_confirm'),
+    path('reset/done/', views.PasswordResetComplete.as_view(), name='password_reset_complete'),
     # Article
     path('create_article/<int:user_id>', views.create_article, name='create_article'),
     path('detail_article/<int:pk>', views.DetailArticle.as_view(), name='detail_article'),
