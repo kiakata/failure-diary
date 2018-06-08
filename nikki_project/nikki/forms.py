@@ -45,7 +45,7 @@ class UpdateUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('nickname', 'agegroup',)
+        fields = ('email', 'nickname', 'agegroup',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -139,6 +139,11 @@ class UpdateUser(OnlyYouMixin, generic.UpdateView):
         return resolve_url('nikki:detail_user', pk=self.kwargs['pk'])
 
 
+class DeleteUser(OnlyYouMixin, generic.DeleteView):
+    model = User
+    success_url = reverse_lazy("nikki:index")
+
+
 class SearchList(generic.ListView):
     model = Article
     template_name = 'nikki/search_list.html'
