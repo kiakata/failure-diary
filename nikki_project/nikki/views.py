@@ -194,6 +194,10 @@ class PasswordResetComplete(PasswordResetCompleteView):
     template_name = 'nikki/password_reset_complete.html'
 
 
+class AboutView(generic.TemplateView):
+    template_name = 'nikki/about.html'
+
+
 class SearchList(generic.ListView):
     model = Article
     template_name = 'nikki/search_list.html'
@@ -214,12 +218,12 @@ class ArticleList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_study'] = Article.objects.filter(category=1).order_by('-created_at')[:6]
-        context['category_school'] = Article.objects.filter(category=2).order_by('-created_at')[:6]
-        context['category_work'] = Article.objects.filter(category=3).order_by('-created_at')[:6]
-        context['category_life'] = Article.objects.filter(category=4).order_by('-created_at')[:6]
-        context['category_love'] = Article.objects.filter(category=5).order_by('-created_at')[:6]
-        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_at')[:6]
+        context['category_study'] = Article.objects.filter(category=1).order_by('-created_at')[:4]
+        context['category_school'] = Article.objects.filter(category=2).order_by('-created_at')[:4]
+        context['category_work'] = Article.objects.filter(category=3).order_by('-created_at')[:4]
+        context['category_life'] = Article.objects.filter(category=4).order_by('-created_at')[:4]
+        context['category_love'] = Article.objects.filter(category=5).order_by('-created_at')[:4]
+        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_at')[:4]
         return context
 
 
@@ -299,7 +303,7 @@ def create_comment(request, article_id):
     context = {
     'form':form
     }
-    return render(request, 'nikki/article_form.html', context)
+    return render(request, 'nikki/comment_form.html', context)
 
 
 class DetailComment(generic.DetailView):

@@ -21,7 +21,7 @@
   <!-- header -->
   <header style="background-color: #2C7CFF;">
     <nav class="navbar navbar-expand-md navbar-light">
-      <a class="navbar-brand font-weight-bold" href="{% url 'nikki:index' %}" style="color: white;">ぼくたちの失敗日記</a>
+      <a class="navbar-brand font-weight-bold text-white" href="{% url 'nikki:index' %}">ぼくたちの失敗日記</a>
       <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,23 +29,23 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color: white;">サイトの理念 <span class="sr-only">(current)</span></a>
+            <a class="nav-link text-white" href="{% url 'nikki:about' %}">サイトについて <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             {% if user.is_authenticated %}
-            <a class="nav-link font-weight-bold" href="{% url 'nikki:logout' %}" style="color: white;">ログアウト</a>
+            <a class="nav-link font-weight-bold text-white" href="{% url 'nikki:logout' %}">ログアウト</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link font-weight-bold"  href="{% url 'nikki:detail_user' user.pk %}" style="color: white;">{{ user.nickname }}</a>
+            <a class="nav-link font-weight-bold text-white"  href="{% url 'nikki:detail_user' user.pk %}">{{ user.nickname }}</a>
           </li>
             {% else %}
-            <a class="nav-link font-weight-bold" href="{% url 'nikki:login' %}" style="color: white;">新規登録/ログイン</a>
+            <a class="nav-link font-weight-bold text-white" href="{% url 'nikki:login' %}">新規登録/ログイン</a>
             {% endif %}
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'nikki:search' %}">
           <input class="form-control mr-sm-2" type="text" placeholder="日記を検索" aria-label="Search" name="keyword">
-          <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </nav>
@@ -61,7 +61,7 @@
       <div class="row">
         <div class="col-12 col-md-6 col-lg-3">
           <ul style="list-style: none;" class="">
-            <li><a href="#" style="text-decoration: none; color:black">ぼくたちの失敗日記とは</a></li>
+            <li><a href="{% url 'nikki:about' %}" style="text-decoration: none; color: black">ぼくたちの失敗日記とは</a></li>
           </ul>
         </div>
         <div class="col-12 col-md-6 col-lg-3">

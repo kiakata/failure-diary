@@ -1,56 +1,80 @@
 {% extends "nikki/base.html" %}
 {% load static %}
-{% block extracss %}<link rel="stylesheet" href="{% static 'nikki/index.css' %}">{% endblock %}
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'nikki/index.css' %}">
+{% endblock %}
 
 {% block content %}
 {{ category_work.article }}
-<section class="">
-  <div class="jumbotron pt-5 pb-3">
+<section class="message" >
+  <div class="jumbotron pt-5 pb-3 bg-white">
     <h2 class="display-5">失敗を日記に記して、一区切りつけませんか？</h2>
     <hr class="my-2">
     <p>自分のSNSアカウントに書くのはちょっと嫌だけど、このサイトだけのニックネームでなら書いてみたいかも。</p>
-    <p class="lead">
-      {% if user.is_authenticated %}
-      <a class="btn btn-primary btn-lg" href="{% url 'nikki:create_article' user.pk %}" role="button">日記を書く</a>
-      {% else %}
-      <a class="btn btn-primary btn-lg" href="{% url 'nikki:login' %}" role="button">日記を書く</a>
-      {% endif %}
-    </p>
+    <div class="sadness text-center ">
+      <div class="row">
+        <div class="col-12 col-sm-3">
+          {% if user.is_authenticated %}
+          <a class="btn btn-primary btn-lg" href="{% url 'nikki:create_article' user.pk %}" role="button">日記を書く</a>
+          {% else %}
+          <a class="btn btn-primary btn-lg" href="{% url 'nikki:login' %}" role="button">日記を書く</a>
+          {% endif %}
+        </div>
+        <div class="col-9 mt-3 mt-sm-0">
+          {% load static %}
+          <img class="" src="{% static 'nikki/images/level1.png' %}" alt="イラスト1">
+          <img class=""  src="{% static 'nikki/images/level2.png' %}" alt="イラスト2">
+          <img class="d-none d-lg-inline-block"  src="{% static 'nikki/images/level3.png' %}" alt="イラスト3">
+          <img  class="" src="{% static 'nikki/images/level4.png' %}" alt="イラスト4">
+          <img class=" d-none d-md-inline-block" src="{% static 'nikki/images/level5.png' %}" alt="イラスト5">
+          <img  class="" src="{% static 'nikki/images/level6.png' %}" alt="イラスト6">
+        </div>
+      </div>
+    </div>
   </div>
-</section>
-<section class="container text-center">
-{% load static %}
-<img border="0" src="{% static 'nikki/images/level1.png' %}" width="128" height="128" alt="イラスト1">
-<img border="0" src="{% static 'nikki/images/level2.png' %}" width="128" height="128" alt="イラスト2">
-<img border="0" src="{% static 'nikki/images/level3.png' %}" width="128" height="128" alt="イラスト3">
-<img border="0" src="{% static 'nikki/images/level4.png' %}" width="128" height="128" alt="イラスト4">
-<img border="0" src="{% static 'nikki/images/level5.png' %}" width="128" height="128" alt="イラスト5">
-<img border="0" src="{% static 'nikki/images/level6.png' %}" width="128" height="128" alt="イラスト6">
 </section>
 
 <div class="container pb-4">
   <section class="category my-5">
     {% for category in category_list %}
-    <a href="{% url 'nikki:category' category.pk %}" class="mr-3" style="text-decoration:none;">{{ category }}</a>
+    <a href="{% url 'nikki:category' category.pk %}" class="d-inline-block mr-3" style="text-decoration:none;">{{ category }}</a>
     {% endfor %}
   </section>
 
-  <section class="work pb-5 mb-3">
-    <h3 class=""><a href="#" class="">日常</a></h3>
-    <div class="row my-md-4 text-center">
+  <section class="pb-5 mb-3">
+    <h3 class="ml-5"><a href="{% url 'nikki:category' pk=4 %}">日常</a></h3>
+    <div class="row">
       {% for article in category_life %}
-      <div class="col-6 col-md-4 col-lg-3 mb-3 pb-0">
-        <div class="card">
-          <div class="card-body pb-2">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_at }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <p>
-              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
-            <p>
+      <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
+        <div class="post">
+          <div class="row">
+            <div class="col-12 col-sm-9">
+              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
+              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+            </div>
+            <div class=" sadness col-12 col-sm-3 text-center">
+              {% if article.failure_image == 1 %}
+              <img src="{% static 'nikki/images/level1.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 2 %}
+              <img src="{% static 'nikki/images/level2.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 3 %}
+              <img src="{% static 'nikki/images/level3.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 4 %}
+              <img src="{% static 'nikki/images/level4.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 5 %}
+              <img src="{% static 'nikki/images/level5.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 6 %}
+              <img src="{% static 'nikki/images/level6.png' %}" alt="失敗イメージ画像" width="30%">
+              {% endif %}
+            </div>
           </div>
+          <p class="card-text">
+            {{ article.text|linebreaksbr|truncatechars:60  }}
+          </p>
+          <p>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+          <p>
         </div>
       </div>
       {% endfor %}
@@ -60,22 +84,40 @@
     </p>
   </section>
 
-  <section class="mb-5">
-    <h3 class=""><a href="#" class=" py-0">仕事</a></h3>
-    <div class="row my-md-4 text-center">
-      {% for article in category_work%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body pb-2">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_at }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <p>
-              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
-            </p>
+  <section class="pb-5 mb-3">
+    <h3 class="ml-5"><a href="{% url 'nikki:category' pk=3 %}">仕事</a></h3>
+    <div class="row">
+      {% for article in category_work %}
+      <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
+        <div class="post">
+          <div class="row">
+            <div class="col-12 col-sm-9">
+              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
+              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+            </div>
+            <div class=" sadness col-12 col-sm-3 text-center">
+              {% if article.failure_image == 1 %}
+              <img src="{% static 'nikki/images/level1.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 2 %}
+              <img src="{% static 'nikki/images/level2.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 3 %}
+              <img src="{% static 'nikki/images/level3.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 4 %}
+              <img src="{% static 'nikki/images/level4.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 5 %}
+              <img src="{% static 'nikki/images/level5.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 6 %}
+              <img src="{% static 'nikki/images/level6.png' %}" alt="失敗イメージ画像" width="30%">
+              {% endif %}
+            </div>
           </div>
+          <p class="card-text">
+            {{ article.text|linebreaksbr|truncatechars:60  }}
+          </p>
+          <p>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+          <p>
         </div>
       </div>
       {% endfor %}
@@ -85,20 +127,40 @@
     </p>
   </section>
 
-  <section class="mb-5">
-    <h3 class=""><a href="#" class="">学校生活</a></h3>
-    <div class="row my-md-4 text-center">
-      {% for article in category_school%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body pb-2">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_at }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+  <section class="pb-5 mb-3">
+    <h3 class="ml-5"><a href="{% url 'nikki:category' pk=2 %}">学校</a></h3>
+    <div class="row">
+      {% for article in category_school %}
+      <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
+        <div class="post">
+          <div class="row">
+            <div class="col-12 col-sm-9">
+              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
+              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+            </div>
+            <div class=" sadness col-12 col-sm-3 text-center">
+              {% if article.failure_image == 1 %}
+              <img src="{% static 'nikki/images/level1.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 2 %}
+              <img src="{% static 'nikki/images/level2.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 3 %}
+              <img src="{% static 'nikki/images/level3.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 4 %}
+              <img src="{% static 'nikki/images/level4.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 5 %}
+              <img src="{% static 'nikki/images/level5.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 6 %}
+              <img src="{% static 'nikki/images/level6.png' %}" alt="失敗イメージ画像" width="30%">
+              {% endif %}
+            </div>
           </div>
+          <p class="card-text">
+            {{ article.text|linebreaksbr|truncatechars:60  }}
+          </p>
+          <p>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+          <p>
         </div>
       </div>
       {% endfor %}
@@ -108,22 +170,40 @@
     </p>
   </section>
 
-  <section class="mb-5">
-    <h3 class=""><a href="#" class="">恋愛</a></h3>
-    <div class="row my-md-4 text-center">
-      {% for article in category_love%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body pb-2">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_at }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <p>
-              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
-            </p>
+  <section class="pb-5 mb-3">
+    <h3 class="ml-5"><a href="{% url 'nikki:category' pk=5 %}">恋愛</a></h3>
+    <div class="row">
+      {% for article in category_love %}
+      <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
+        <div class="post">
+          <div class="row">
+            <div class="col-12 col-sm-9">
+              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
+              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+            </div>
+            <div class=" sadness col-12 col-sm-3 text-center">
+              {% if article.failure_image == 1 %}
+              <img src="{% static 'nikki/images/level1.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 2 %}
+              <img src="{% static 'nikki/images/level2.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 3 %}
+              <img src="{% static 'nikki/images/level3.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 4 %}
+              <img src="{% static 'nikki/images/level4.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 5 %}
+              <img src="{% static 'nikki/images/level5.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 6 %}
+              <img src="{% static 'nikki/images/level6.png' %}" alt="失敗イメージ画像" width="30%">
+              {% endif %}
+            </div>
           </div>
+          <p class="card-text">
+            {{ article.text|linebreaksbr|truncatechars:60  }}
+          </p>
+          <p>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+          <p>
         </div>
       </div>
       {% endfor %}
@@ -131,24 +211,42 @@
     <p class="text-right mr-5 pr-5">
       <a href="{% url 'nikki:category' pk=5 %}">もっと見る</a>
     </p>
-    </section>
+  </section>
 
-  <section class="mb-5">
-    <h3 class=""><a href="#" class="">勉強</a></h3>
-    <div class="row my-md-4 text-center">
-    {% for article in category_study%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body pb-2">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_at }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <p>
-              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
-            </p>
+  <section class="pb-5 mb-3">
+    <h3 class="ml-5"><a href="{% url 'nikki:category' pk=1 %}">勉強</a></h3>
+    <div class="row">
+      {% for article in category_study %}
+      <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
+        <div class="post">
+          <div class="row">
+            <div class="col-12 col-sm-9">
+              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
+              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+            </div>
+            <div class=" sadness col-12 col-sm-3 text-center">
+              {% if article.failure_image == 1 %}
+              <img src="{% static 'nikki/images/level1.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 2 %}
+              <img src="{% static 'nikki/images/level2.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 3 %}
+              <img src="{% static 'nikki/images/level3.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 4 %}
+              <img src="{% static 'nikki/images/level4.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 5 %}
+              <img src="{% static 'nikki/images/level5.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 6 %}
+              <img src="{% static 'nikki/images/level6.png' %}" alt="失敗イメージ画像" width="30%">
+              {% endif %}
+            </div>
           </div>
+          <p class="card-text">
+            {{ article.text|linebreaksbr|truncatechars:60  }}
+          </p>
+          <p>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+          <p>
         </div>
       </div>
       {% endfor %}
@@ -158,22 +256,40 @@
     </p>
   </section>
 
-  <section>
-    <h3 class=""><a href="#" class="">その他小ネタなど</a></h3>
-    <div class="row my-md-4 text-center">
-      {% for article in category_triviality%}
-      <div class="col-6 col-md-4 col-lg-3 mb-3">
-        <div class="card">
-          <div class="card-body pb-2">
-            <h5 class="card-title">{{ article.title|truncatechars:15 }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ article.created_at }}</h6>
-            <p class="card-text">
-              {{ article.text|linebreaksbr|truncatechars:60  }}
-            </p>
-            <p>
-              <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
-            </p>
+  <section class="pb-5 mb-3">
+    <h3 class="ml-5"><a href="{% url 'nikki:category' pk=6 %}">その他/ささいなこと</a></h3>
+    <div class="row">
+      {% for article in category_triviality %}
+      <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
+        <div class="post">
+          <div class="row">
+            <div class="col-12 col-sm-9">
+              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
+              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+            </div>
+            <div class=" sadness col-12 col-sm-3 text-center">
+              {% if article.failure_image == 1 %}
+              <img src="{% static 'nikki/images/level1.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 2 %}
+              <img src="{% static 'nikki/images/level2.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 3 %}
+              <img src="{% static 'nikki/images/level3.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 4 %}
+              <img src="{% static 'nikki/images/level4.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 5 %}
+              <img src="{% static 'nikki/images/level5.png' %}" alt="失敗イメージ画像" width="30%">
+              {% elif article.failure_image == 6 %}
+              <img src="{% static 'nikki/images/level6.png' %}" alt="失敗イメージ画像" width="30%">
+              {% endif %}
+            </div>
           </div>
+          <p class="card-text">
+            {{ article.text|linebreaksbr|truncatechars:60  }}
+          </p>
+          <p>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+          <p>
         </div>
       </div>
       {% endfor %}
@@ -182,6 +298,5 @@
       <a href="{% url 'nikki:category' pk=6 %}">もっと見る</a>
     </p>
   </section>
-
-  </div>
+</div>
 {% endblock %}
