@@ -256,6 +256,14 @@ def create_article(request, user_id):
 class DetailArticle(generic.DetailView):
     model = Article
 
+    def get_context_data(self, **kwargs):
+        article_pk = self.kwargs['pk']
+        article = get_object_or_404(Article, pk=article_pk)
+        author = User.objects.get(article=article_pk)
+        context = super().get_context_data(**kwargs)
+        context['user_article'] = Article.objects.filter(user=author).order_by('-created_at')[:5]
+        return context
+
 
 class UpdateArticle(generic.UpdateView):
     model = Article
@@ -270,6 +278,23 @@ class UpdateArticle(generic.UpdateView):
 class DeleteArticle(generic.DeleteView):
     model = Article
     success_url = reverse_lazy("nikki:index")
+
+
+class AuthorArticles(generic.ListView):
+    """
+    あるユーザーの日記一覧ページ
+    """
+    model = Article
+    template_name = 'nikki/author_articles.html'
+
+    def get_context_data(self, **kwargs):
+        user_id = self.kwargs['user_id']
+        author = get_object_or_404(User, pk=user_id)
+        context = super().get_context_data(**kwargs)
+        context['articles_list'] = Article.objects.filter(user=author).order_by('-created_at')[:10]
+        # ↓↓（仮）↓↓
+        context['tentative_list'] = Article.objects.filter(user=author).order_by('-created_at')[:1]
+        return context
 
 
 class CategoryView(generic.ListView):
