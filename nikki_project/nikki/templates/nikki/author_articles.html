@@ -15,8 +15,9 @@
 
   <section class="pb-5 mb-3">
     <h5 class="ml-5">過去の記事一覧</h5>
+    {% include 'nikki/pagination.html' %}
     <div class="row">
-      {% for article in articles_list %}
+      {% for article in article_list %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
         <div class="post">
           <div class="row">
@@ -51,8 +52,7 @@
       </div>
       {% endfor %}
     </div>
-    <p class="text-center mt-3">
-    </p>
+    {% include 'nikki/pagination.html' %}
   </section>
 </div>
 

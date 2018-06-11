@@ -16,8 +16,9 @@
     <div class="">
       <h2>{{ category_name }}の失敗日記</h2>
     </div>
-    <div class="row">
-      {% for article in category_article %}
+    {% include 'nikki/pagination.html' %}
+    <div class="row mb-3">
+      {% for article in article_list %}
       <div class="col-12 col-sm-6 col-lg-4">
         <div class="post">
           <div class="row">
@@ -46,12 +47,15 @@
             {{ article.text|linebreaksbr|truncatechars:60  }}
           </p>
           <p>
-            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
+            <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">
+              続きを見る
+            </a>
           <p>
         </div>
       </div>
       {% endfor %}
     </div>
+    {% include 'nikki/pagination.html' %}
   </section>
 
 </div>
