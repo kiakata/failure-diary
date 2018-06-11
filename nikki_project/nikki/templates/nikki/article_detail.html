@@ -1,6 +1,8 @@
 {% extends "nikki/base.html" %}
 {% load static %}
-{% block extracss %}<link rel="stylesheet" href="{% static 'nikki/article_detail.css' %}" />{% endblock %}
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'nikki/article_detail.css' %}" />
+{% endblock %}
 
 {% block content %}
 <div class="container py-5">
@@ -37,7 +39,7 @@
       <div class="text container py-3">
         <h6 class="posted-at font-weight-light text-muted">
           {{ article.created_at|date:"Y/n/d" }}
-        </h6>        
+        </h6>
         {{ article.text | linebreaksbr | urlize}}
       </div>
 

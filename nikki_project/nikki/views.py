@@ -201,6 +201,7 @@ class AboutView(generic.TemplateView):
 class SearchList(generic.ListView):
     model = Article
     template_name = 'nikki/search_list.html'
+    paginate_by = 12
 
     def get_queryset(self):
         queryset = Article.objects.order_by('-created_at')
@@ -286,27 +287,40 @@ class AuthorArticles(generic.ListView):
     """
     model = Article
     template_name = 'nikki/author_articles.html'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         user_id = self.kwargs['user_id']
         author = get_object_or_404(User, pk=user_id)
         context = super().get_context_data(**kwargs)
-        context['articles_list'] = Article.objects.filter(user=author).order_by('-created_at')[:10]
         # ↓↓（仮）↓↓
         context['tentative_list'] = Article.objects.filter(user=author).order_by('-created_at')[:1]
         return context
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        author = get_object_or_404(User, pk=user_id)
+        queryset = Article.objects.filter(user=author).order_by('-created_at')
+        return queryset
 
 
 class CategoryView(generic.ListView):
     model = Article
     template_name = 'nikki/category.html'
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         category_pk = self.kwargs['pk']
         context = super().get_context_data(**kwargs)
-        context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_at')
+        # context['category_article'] = Article.objects.filter(category=category_pk).order_by('-created_at')
         context['category_name'] = Category.objects.get(pk=category_pk)
         return context
+
+    def get_queryset(self):
+        category_pk = self.kwargs['pk']
+        queryset = Article.objects.filter(category=category_pk).order_by('-created_at')
+        return queryset
+
 
 def create_comment(request, article_id):
     """

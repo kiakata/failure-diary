@@ -4,7 +4,7 @@ from . import views
 app_name = 'nikki'
 
 urlpatterns = [
-    path('index', views.ArticleList.as_view(), name='index'),
+    path('', views.ArticleList.as_view(), name='index'),
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
     path('search/', views.SearchList.as_view(), name='search'),
