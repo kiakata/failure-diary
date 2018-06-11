@@ -35,6 +35,9 @@
 
       <h3 class="title text-center mt-4">{{ article.title }}</h3>
       <div class="text container py-3">
+        <h6 class="posted-at font-weight-light text-muted">
+          {{ article.created_at|date:"Y/n/d" }}
+        </h6>        
         {{ article.text | linebreaksbr | urlize}}
       </div>
 
@@ -44,9 +47,10 @@
       <p class="mb-0">{{ article.user.nickname }}</p>
       <p>{{ article.user.agegroup }}代</p>
       <p class="others mb-1 font-weight-bold">この著者の記事</p>
-      {% for article in article.user.article_set.all %}
+      {% for article in user_article %}
       <p class="mb-1"><a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:10 }}</a></p>
       {% endfor %}
+      <a href="{% url 'nikki:author_articles' object.user.id %}">もっと見る</a>
     </div>
   </div>
 
@@ -54,12 +58,16 @@
     <div class="row">
       <div class="col-8 offset-2">
         {% if user.is_authenticated %}
-        <a class="btn btn-info my-3" href="{% url 'nikki:comment' article.pk %}">コメントする</a>
+        <div class="text-center">
+          <a class="d-inline-block mt-5 mb-3" href="{% url 'nikki:comment' article.pk %}">コメントする</a>
+        </div>
         {% else %}
-        <a class="btn btn-info my-3" href="{% url 'nikki:login' %}">コメントする</a>
+        <div class="text-center">
+          <a class="d-inline-block mt-5 mb-3" href="{% url 'nikki:login' %}">コメントする</a>
+        </div>
         {% endif %}
         {% for comment in article.comment_set.all %}
-        <div class="comment py-3" style="border-top-style: groove;">
+        <div class="comment py-3 border-top">
           <p class="mb-1 font-weight-bold">{{ comment.user.nickname }}：{{ comment.user.agegroup }}代</p>
           <p class="text">{{ comment.text | linebreaksbr | urlize }}</p>
           <p class="font-weight-light mb-1">{{ comment.created_at }}</p>
