@@ -4,7 +4,7 @@
   <div class="col-12 text-center">
     <h3>退会の確認</h3>
     <p class="text-danger">以下のアカウントを削除して退会しますか？</p>
-    <p>アカウントを削除すると、全ての投稿した日記は削除されます。</p>
+    <p>アカウントを削除すると、投稿したすべての日記は削除されます。</p>
 
     <table class="table">
       <tbody>
@@ -27,8 +27,8 @@
     {% csrf_token %}
      {{ form }}
 
-     <button type="submit" class="btn btn-danger mr-2">退会する</button>
-     <a href="{% url 'nikki:detail_user' user.id %}" class="btn btn-success">キャンセル</a>
+     <a href="{% url 'nikki:detail_user' user.id %}" class="mr-4">キャンセル</a>
+     <button type="submit" class="btn btn-danger">退会する</button>
 
    </form>
   </div>
