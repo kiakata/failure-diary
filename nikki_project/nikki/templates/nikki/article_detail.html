@@ -14,8 +14,8 @@
     <div class="article col-12 col-md-7">
       {% if request.user.id == object.user_id %}
       <section class="post-edit mt-4">
-        <button type="button" class="btn btn-success mr-5" onclick="location.href='{% url 'nikki:update_article' article.id %}'">記事を編集する</button>
-        <a href="{% url 'nikki:delete_article' article.id %}" style="color:grey;">記事を削除する</a>
+        <a class="text-secondary mr-5" href="{% url 'nikki:update_article' article.id %}">記事を編集する</a>
+        <a  class="text-secondary" href="{% url 'nikki:delete_article' article.id %}">記事を削除する</a>
       </section>
       {% endif %}
 

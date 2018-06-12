@@ -6,8 +6,8 @@
   {{ comment.text | linebreaksbr | urlize}}
 </div>
 <section class="post-edit mt-4">
-  <button type="button" class="btn btn-success mr-2" onclick="location.href='{% url 'nikki:update_comment' comment.id %}'">コメントをを編集する</button>
-  <button type="button" class="btn btn-danger" onclick="location.href='{% url 'nikki:delete_comment' comment.id %}'">コメントを削除する</button>
+  <a  class="text-secondary mr-3" href="{% url 'nikki:update_comment' comment.id %}">コメントをを編集する</a>
+  <a class="text-secondary" href="{% url 'nikki:delete_comment' comment.id %}">コメントを削除する</a>
 </section>
 
 

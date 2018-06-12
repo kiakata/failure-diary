@@ -14,7 +14,7 @@ from .forms import (
 from .models import Article, Category, Comment
 from django.db.models import Q
 
-
+from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404, HttpResponseRedirect
@@ -132,6 +132,13 @@ class DetailUser(OnlyYouMixin, generic.DetailView):
     model = User
     template_name = 'nikki/user_detail.html'
 
+    def get_context_data(self, **kwargs):
+        user_id = self.kwargs['pk']
+        author = get_object_or_404(User, pk=user_id)
+        context = super().get_context_data(**kwargs)
+        context['articles_list'] = Article.objects.filter(user=author).order_by('-created_at')
+        return context
+
 
 class UpdateUser(OnlyYouMixin, generic.UpdateView):
     model = User
@@ -141,10 +148,24 @@ class UpdateUser(OnlyYouMixin, generic.UpdateView):
     def get_success_url(self):
         return resolve_url('nikki:detail_user', pk=self.kwargs['pk'])
 
+    def form_valid(self, form):
+        messages.success(self.request, "内容を更新しました")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "内容を更新できませんでした")
+        return super().form_invalid(form)
+
+
 
 class DeleteUser(OnlyYouMixin, generic.DeleteView):
     model = User
     success_url = reverse_lazy("nikki:index")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "アカウント及び記事を削除しました")
+        return super().delete(request, *args, **kwargs)
+
 
 
 class PasswordChange(PasswordChangeView):
@@ -243,10 +264,16 @@ def create_article(request, user_id):
 
     form = ArticleForm(request.POST or None)
 
-    if request.method == 'POST' and form.is_valid():
-        p = Article(title=posted_article_title, text=posted_article_text, user_id=user_id, category_id=posted_category_id, failure_image=posted_failure_image)
-        p.save()
-        return redirect('nikki:index')
+    if request.method == 'POST':
+        if form.is_valid():
+            p = Article(title=posted_article_title, text=posted_article_text, user_id=user_id, category_id=posted_category_id, failure_image=posted_failure_image)
+            p.save()
+            messages.success(request, '日記を投稿しました')
+            return redirect('nikki:detail_user', pk=user_id)
+        else:
+            messages.error(request, "日記の投稿に失敗しました")
+            return redirect('nikki:detail_user', pk=user_id)
+
 
     context = {
     'form':form
@@ -275,10 +302,22 @@ class UpdateArticle(generic.UpdateView):
         url = reverse_lazy("nikki:detail_article", kwargs={"pk": article_pk})
         return url
 
+    def form_valid(self, form):
+        messages.success(self.request, "記事の内容を更新しました")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "記事の内容を更新できませんでした")
+        return super().form_invalid(form)
+
 
 class DeleteArticle(generic.DeleteView):
     model = Article
     success_url = reverse_lazy("nikki:index")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "記事を削除しました")
+        return super().delete(request, *args, **kwargs)
 
 
 class AuthorArticles(generic.ListView):
@@ -334,10 +373,15 @@ def create_comment(request, article_id):
 
     form = CommentForm(request.POST or None)
 
-    if request.method == 'POST' and form.is_valid():
-        p = Comment(article_id=article_id, user_id=posted_user_id, text=posted_comment_text)
-        p.save()
-        return redirect('nikki:detail_article', pk=article_id )
+    if request.method == 'POST':
+        if form.is_valid():
+            p = Comment(article_id=article_id, user_id=posted_user_id, text=posted_comment_text)
+            p.save()
+            messages.success(request, 'コメントを投稿しました')
+            return redirect('nikki:detail_article', pk=article_id )
+        else:
+            messages.error(request, "コメントの投稿に失敗しました")
+            return redirect('nikki:detail_user', pk=user_id)
 
     context = {
     'form':form
@@ -360,6 +404,14 @@ class UpdateComment(generic.UpdateView):
         url = reverse_lazy("nikki:detail_article", kwargs={"pk": article_id})
         return url
 
+    def form_valid(self, form):
+        messages.success(self.request, "コメントの内容を更新しました")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "コメントの内容を更新できませんでした")
+        return super().form_invalid(form)
+
 
 class DeleteComment(generic.DeleteView):
     model = Comment
@@ -371,4 +423,7 @@ class DeleteComment(generic.DeleteView):
         url = reverse_lazy("nikki:detail_article", kwargs={"pk": article_id})
         return url
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "コメントを削除しました")
+        return super().delete(request, *args, **kwargs)
 
