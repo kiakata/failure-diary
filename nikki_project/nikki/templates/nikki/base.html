@@ -1,20 +1,33 @@
 <!doctype html>
 <html lang="ja">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-  <!-- css -->
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'nikki/common.css' %}"/>
-  {% block extracss %}{% endblock %}
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+
+  <!-- meta tag - title, keywords, description, author -->
+  <title>ぼくたちの失敗日記</title>
+  <meta name="keywords" content="失敗,日記,ニックネーム">
+  <meta name="description" content="失敗を投稿してみませんか？">
+  <meta name="author" content="Takaaki Uno">
+
+  <!-- favicon -->
+
+  <!-- twitter card -->
+
+  <!-- facebook ogp -->
+
+  <!-- Let browser know website is optimized for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
   <!-- css -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'nikki/common.css' %}" />
+  {% block extracss %}{% endblock %}
 
-  <title>ぼくたちの失敗日記</title>
 </head>
 
 <body>
@@ -74,23 +87,23 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="{% url 'nikki:about' %}" style="text-decoration: none; color: black">ぼくたちの失敗日記とは</a></li>
+          <ul class="list-unstyled">
+            <li><a  class="text-secondary" href="{% url 'nikki:about' %}" style="text-decoration: none;">ぼくたちの失敗日記とは</a></li>
           </ul>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="{% url 'nikki:login' %}" style="text-decoration: none; color:black">ログイン/会員登録</a></li>
+          <ul class="list-unstyled">
+            <li><a class="text-secondary" href="{% url 'nikki:login' %}" class="text-secondary" style="text-decoration: none;">ログイン/会員登録</a></li>
           </ul>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="#" style="text-decoration: none; color:black">利用規約</a></li>
+          <ul class="list-unstyled">
+            <li><a class="text-secondary" href="#" style="text-decoration: none;">利用規約</a></li>
           </ul>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="#" style="text-decoration: none; color:black">お問い合わせ</a></li>
+          <ul class="list-unstyled">
+            <li><a class="text-secondary" href="#" style="text-decoration: none;">お問い合わせ</a></li>
           </ul>
         </div>
       </div>
