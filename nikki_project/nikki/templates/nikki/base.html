@@ -1,20 +1,36 @@
 <!doctype html>
 <html lang="ja">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-  <!-- css -->
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'nikki/common.css' %}"/>
-  {% block extracss %}{% endblock %}
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+
+  <!-- meta tag - title, keywords, description, author -->
+  <title>ぼくたちの失敗日記</title>
+  <meta name="keywords" content="失敗,日記,ニックネーム">
+  <meta name="description" content="失敗を投稿してみませんか？">
+  <meta name="author" content="Takaaki Uno">
+
+  <!-- favicon -->
+
+  <!-- twitter card -->
+
+  <!-- facebook ogp -->
+
+  <!-- Let browser know website is optimized for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
   <!-- css -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'nikki/common.css' %}" />
+  {% block extracss %}{% endblock %}
 
-  <title>ぼくたちの失敗日記</title>
 </head>
 
 <body>
@@ -45,7 +61,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'nikki:search' %}">
           <input class="form-control mr-sm-2" type="text" placeholder="日記を検索" aria-label="Search" name="keyword">
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
       </div>
     </nav>
@@ -72,25 +88,40 @@
 
   <footer class="foot py-4 px-5 " id="foot">
     <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="{% url 'nikki:about' %}" style="text-decoration: none; color: black">ぼくたちの失敗日記とは</a></li>
+      <div class="row text-center">
+        <div class="col-12 col-md-6">
+          <ul class="list-unstyled">
+            <li><a  class="text-secondary d-inline-block" href="{% url 'nikki:about' %}" style="text-decoration: none;">ぼくたちの失敗日記とは</a></li>
           </ul>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="{% url 'nikki:login' %}" style="text-decoration: none; color:black">ログイン/会員登録</a></li>
+        <div class="col-12 col-md-6">
+          <ul class="list-unstyled">
+            {% if user.is_authenticated %}
+            <li><a class="text-secondary" href="{% url 'nikki:logout' %}"  style="text-decoration: none;">ログアウト</a></li>
+            {% else %}
+            <li><a class="text-secondary" href="{% url 'nikki:login' %}"  style="text-decoration: none;">新規登録/ログイン</a></li>
+            {% endif %}
           </ul>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="#" style="text-decoration: none; color:black">利用規約</a></li>
+        <div class="col-12 col-md-6">
+          <ul class="list-unstyled">
+            <li>
+              {% if user.is_authenticated %}
+              <a class="text-secondary" href="{% url 'nikki:create_article' user.pk %}" style="text-decoration: none;">日記を書く</a>
+              {% else %}
+              <a class="text-secondary" href="{% url 'nikki:login' %}" style="text-decoration: none;">日記を書く</a>
+              {% endif %}
+            </li>
           </ul>
         </div>
-        <div class="col-12 col-md-6 col-lg-3">
-          <ul style="list-style: none;" class="">
-            <li><a href="#" style="text-decoration: none; color:black">お問い合わせ</a></li>
+        <div class="col-12 col-md-6">
+          <ul class="list-unstyled">
+            <li><a class="text-secondary" href="#" style="text-decoration: none;">利用規約</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6">
+          <ul class="list-unstyled">
+            <li><a class="text-secondary" href="#" style="text-decoration: none;">お問い合わせ</a></li>
           </ul>
         </div>
       </div>
