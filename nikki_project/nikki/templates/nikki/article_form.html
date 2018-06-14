@@ -15,7 +15,9 @@
         <!-- これより上がユーザー情報で登録されていた項目で、下がここで登録してもらいたい項目 -->
         {% for field in form %}
           <tr>
-            <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+            <th>
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </th>
             <td>{{ field }} {{ field.errors }}</td>
           </tr>
         {% endfor %}

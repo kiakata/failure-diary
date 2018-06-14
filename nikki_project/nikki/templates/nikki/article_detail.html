@@ -52,7 +52,11 @@
       <p>{{ article.user.agegroup }}代</p>
       <p class="others mb-1 font-weight-bold">この著者の記事</p>
       {% for article in user_article %}
-      <p class="mb-1"><a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:10 }}</a></p>
+      <p class="mb-1">
+        <a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">
+          {{ article.title|truncatechars_html:10 }}
+        </a>
+      </p>
       {% endfor %}
       <a href="{% url 'nikki:author_articles' object.user.id %}">もっと見る</a>
     </div>

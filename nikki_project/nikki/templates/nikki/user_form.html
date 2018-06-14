@@ -10,7 +10,9 @@
           <tbody>
               {% for field in form %}
                   <tr>
-                      <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                      <th>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                      </th>
                       <td>{{ field }} {{ field.errors }}</td>
                   </tr>
               {% endfor %}

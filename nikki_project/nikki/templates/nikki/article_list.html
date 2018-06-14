@@ -38,19 +38,23 @@
 <div class="container pb-4">
   <section class="category text-center my-5">
     {% for category in category_list %}
-    <a href="{% url 'nikki:category' category.pk %}" class="d-inline-block mb-2 mr-3" style="text-decoration:none;">{{ category }}</a>
+    <a href="{% url 'nikki:category' category.pk %}" class="d-inline-block mb-2 mr-4" style="text-decoration:none;">{{ category }}</a>
     {% endfor %}
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5"><a href="{% url 'nikki:category' pk=4 %}">日常</a></h3>
+    <h3 class="ml-md-5 pl-lg-5">
+      <a href="{% url 'nikki:category' pk=4 %}">日常</a>
+    </h3>
     <div class="row">
       {% for article in category_life %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
         <div class="post">
           <div class="row">
             <div class="col-12 col-sm-9">
-              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <p class="profile">
+                <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}代</a>
+              </p>
               <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
               <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
             </div>
@@ -86,14 +90,18 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5"><a href="{% url 'nikki:category' pk=3 %}">仕事</a></h3>
+    <h3 class="ml-md-5 pl-lg-5">
+      <a href="{% url 'nikki:category' pk=3 %}">仕事</a>
+    </h3>
     <div class="row">
       {% for article in category_work %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
         <div class="post">
           <div class="row">
             <div class="col-12 col-sm-9">
-              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <p class="profile">
+                <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}代</a>
+              </p>
               <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
               <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
             </div>
@@ -129,14 +137,18 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5"><a href="{% url 'nikki:category' pk=2 %}">学校</a></h3>
+    <h3 class="ml-md-5 pl-lg-5">
+      <a href="{% url 'nikki:category' pk=2 %}">学校</a>
+    </h3>
     <div class="row">
       {% for article in category_school %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
         <div class="post">
           <div class="row">
             <div class="col-12 col-sm-9">
-              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <p class="profile">
+                <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}代</a>
+              </p>
               <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
               <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
             </div>
@@ -172,14 +184,18 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5"><a href="{% url 'nikki:category' pk=5 %}">恋愛</a></h3>
+    <h3 class="ml-md-5 pl-lg-5">
+      <a href="{% url 'nikki:category' pk=5 %}">恋愛</a>
+    </h3>
     <div class="row">
       {% for article in category_love %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
         <div class="post">
           <div class="row">
             <div class="col-12 col-sm-9">
-              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <p class="profile">
+                <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}代</a>
+              </p>
               <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
               <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
             </div>
@@ -215,14 +231,18 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5"><a href="{% url 'nikki:category' pk=1 %}">勉強</a></h3>
+    <h3 class="ml-md-5 pl-lg-5">
+      <a href="{% url 'nikki:category' pk=1 %}">勉強</a>
+    </h3>
     <div class="row">
       {% for article in category_study %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
         <div class="post">
           <div class="row">
             <div class="col-12 col-sm-9">
-              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <p class="profile">
+                <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}代</a>
+              </p>
               <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
               <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
             </div>
@@ -258,14 +278,18 @@
   </section>
 
   <section class="pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5"><a href="{% url 'nikki:category' pk=6 %}">その他/ささいなこと</a></h3>
+    <h3 class="ml-md-5 pl-lg-5">
+      <a href="{% url 'nikki:category' pk=6 %}">その他/ささいなこと</a>
+    </h3>
     <div class="row">
       {% for article in category_triviality %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
         <div class="post">
           <div class="row">
             <div class="col-12 col-sm-9">
-              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <p class="profile">
+                <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}代</a>
+              </p>
               <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
               <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
             </div>
