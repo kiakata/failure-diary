@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{% static 'nikki/article_detail.css' %}" />
 {% endblock %}
 
+{% block title %}{{ article.title }}{% endblock %}
+
 {% block content %}
 <div class="container py-5">
   <h2 class="text-center font-weight-bold">{{ article.user.nickname }}の日記</h2>
