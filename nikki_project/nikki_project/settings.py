@@ -31,10 +31,19 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'nikki.User'
 
 LOGIN_URL = 'nikki:login'
-LOGIN_REDIRECT_URL = 'nikki:top'
+LOGIN_REDIRECT_URL = 'nikki:index'
+
+LOGOUT_REDIRECT_URL = 'nikki:index'
 
 # メールをコンソールに表示する
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# gmailでメールを送信
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'failure06diary@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
 
 # Application definition
 
@@ -71,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'nikki.context_processors.common',
             ],
         },
     },
@@ -108,6 +118,42 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+LOGGING = {
+    'version': 1,   # これを設定しないと怒られる
+    'formatters': { # 出力フォーマットを文字列形式で指定する
+        'all': {    # 出力フォーマットに`all`という名前をつける
+            'format': '\t'.join([
+                "[%(levelname)s]",
+                "asctime:%(asctime)s",
+                "module:%(module)s",
+                "message:%(message)s",
+                "process:%(process)d",
+                "thread:%(thread)d",
+            ])
+        },
+    },
+    'handlers': {  # ログをどこに出すかの設定
+        'file': {  # どこに出すかの設定に名前をつける `file`という名前をつけている
+            'level': 'DEBUG',  # DEBUG以上のログを取り扱うという意味
+            'class': 'logging.FileHandler',  # ログを出力するためのクラスを指定
+            'filename': os.path.join(BASE_DIR, 'django.log'),  # どこに出すか
+            'formatter': 'all',  # どの出力フォーマットで出すかを名前で指定
+        },
+        'console': { # どこに出すかの設定をもう一つ、こちらの設定には`console`という名前
+            'level': 'DEBUG',
+            # こちらは標準出力に出してくれるクラスを指定
+            'class': 'logging.StreamHandler',
+            'formatter': 'all'
+        },
+    },
+    'loggers': {  # どんなloggerがあるかを設定する
+        'command': {  # commandという名前のloggerを定義
+            'handlers': ['file', 'console'],  # 先述のfile, consoleの設定で出力
+            'level': 'DEBUG',
+        },
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

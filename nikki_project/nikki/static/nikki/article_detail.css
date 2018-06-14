@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+.title {
+  word-wrap:break-word;
+}
+
+.text {
+  word-wrap:break-word;
+}
+
+button>a {
+  color: white;
+  text-decoration: none;
+}
+
+button>a:hover {
+  color: white;
+}
+
+.comment {
+  border-top-style: ridge;
+}

@@ -1,0 +1,18 @@
+{% extends "nikki/base.html" %}
+
+{% block title %}{{ comment.user.nickname }}さんのコメント{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+<h4>{{ comment.user.nickname }}さんのコメント</h4>
+<div class="text py-3">
+  {{ comment.text | linebreaksbr | urlize}}
+</div>
+<section class="post-edit mt-4">
+  <a  class="text-secondary mr-3" href="{% url 'nikki:update_comment' comment.id %}">コメントをを編集する</a>
+  <a class="text-secondary" href="{% url 'nikki:delete_comment' comment.id %}">コメントを削除する</a>
+</section>
+
+
+
+{% endblock %}

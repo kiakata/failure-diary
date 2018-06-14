@@ -1,28 +1,70 @@
 {% extends "nikki/base.html" %}
 
+{% block title %}失敗日記を投稿{% endblock %}
+
 {% block content %}
+
 <div class="container py-3">
   <form class="" action="" method="POST">
     <table class="table">
       <tbody>
         <tr>
           <th>プロフィール</th>
-          <td>{{ user.nickname }} {{ user.age }} {{ user.gender }}</td>
+          <td><span class="font-weight-bold">{{ user.nickname }}</span> ： {{ user.agegroup }}代</td>
         </tr>
         <!-- これより上がユーザー情報で登録されていた項目で、下がここで登録してもらいたい項目 -->
         {% for field in form %}
           <tr>
-            <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+            <th>
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </th>
             <td>{{ field }} {{ field.errors }}</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
 
-    <button type="submit" name="" class="btn btn-info">送信</button>
+    <section class="container text-center pb-4 pr-3">
+      <div class="row">
+        {% load static %}
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【１】</p>
+          <img border="0" src="{% static 'nikki/images/level1.png' %}" width="80" height="80" alt="イラスト1">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【２】</p>
+          <img border="0" src="{% static 'nikki/images/level2.png' %}" width="80" height="80" alt="イラスト2">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【３】</p>
+          <img border="0" src="{% static 'nikki/images/level3.png' %}" width="80" height="80" alt="イラスト3">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【４】</p>
+          <img border="0" src="{% static 'nikki/images/level4.png' %}" width="80" height="80" alt="イラスト4">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【５】</p>
+          <img border="0" src="{% static 'nikki/images/level5.png' %}" width="80" height="80" alt="イラスト5">
+        </div>
+
+        <div class="col-4 col-md-3 col-lg-2">
+          <p>【６】</p>
+          <img border="0" src="{% static 'nikki/images/level6.png' %}" width="80" height="80" alt="イラスト6">
+        </div>
+      </div>
+    </section>
+
+  <div class="text-right mx-5">
+    <button type="submit" name="" class="switch btn btn-lg text-white">送信</button>
     {% csrf_token %}
+  </div>
+
   </form>
 </div>
-
 
 {% endblock %}
