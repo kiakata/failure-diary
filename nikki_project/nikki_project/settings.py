@@ -36,6 +36,13 @@ LOGIN_REDIRECT_URL = 'nikki:index'
 # メールをコンソールに表示する
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# gmailでメールを送信
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'failure06diary@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -24,6 +24,9 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse_lazy
 
+from django.views.generic.edit import FormView
+from .forms import ContactForm
+
 
 User = get_user_model()
 
@@ -426,4 +429,20 @@ class DeleteComment(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "コメントを削除しました")
         return super().delete(request, *args, **kwargs)
+
+
+class ContactView(FormView):
+    """
+    問い合わせページ
+    """
+    template_name = 'nikki/contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('nikki:index')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        form.send_email()
+        messages.success(self.request, 'メッセージを送信しました')
+        return super(ContactView, self).form_valid(form)
 
