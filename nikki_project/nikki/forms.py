@@ -6,6 +6,9 @@ from django.contrib.auth.forms import (
 from django.contrib.auth import get_user_model
 from .models import Article, Comment, Category, User
 
+from django.core.mail import send_mail
+from django.conf import settings
+
 import logging
 User = get_user_model()
 
@@ -121,3 +124,27 @@ class CommentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+
+
+class ContactForm(forms.Form):
+    """
+    問い合わせフォーム
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+    name = forms.CharField(label='お名前', required=True,)
+    email = forms.EmailField(label='メールアドレス', required=True,)
+    message = forms.CharField(label='お問い合わせ内容', widget=forms.Textarea,  required=True)
+
+    def send_email(self):
+        # send email using the self.cleaned_data dictionary
+        subject = self.cleaned_data['name']
+        message = self.cleaned_data['message']
+        from_email = self.cleaned_data['email']
+        to = [settings.EMAIL_HOST_USER]
+
+        send_mail(subject, message, from_email, to)
+
