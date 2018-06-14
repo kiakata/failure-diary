@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+header {
+  background-color: skyblue;
+}
+
 .foot {
   background-color: #e9ecef;
 }
@@ -10,4 +14,12 @@ footer a {
 
 footer a:hover {
   font-weight: bold
+}
+
+.switch {
+  background-color: skyblue;
+}
+
+.switch-2 {
+  background-color: orange;
 }

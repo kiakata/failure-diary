@@ -17,9 +17,9 @@
       <div class="row">
         <div class="col-12 col-sm-3 my-auto">
           {% if user.is_authenticated %}
-          <a class="btn btn-primary btn-lg" href="{% url 'nikki:create_article' user.pk %}" role="button">日記を書く</a>
+          <a class="switch btn btn-lg text-white" href="{% url 'nikki:create_article' user.pk %}" role="button">日記を書く</a>
           {% else %}
-          <a class="btn btn-primary btn-lg" href="{% url 'nikki:login' %}" role="button">日記を書く</a>
+          <a class="switch btn btn-lg text-white" href="{% url 'nikki:login' %}" role="button">日記を書く</a>
           {% endif %}
         </div>
         <div class="col-9 mt-3 mt-sm-0 mx-auto">
