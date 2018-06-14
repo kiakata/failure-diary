@@ -1,4 +1,7 @@
 {% extends "nikki/base.html" %}
+
+{% block title %}コメントの削除確認{% endblock %}
+
 {% block content %}
 <div class="container py-5">
   <div class="col-12 text-center">
@@ -11,7 +14,7 @@
      {{ form }}
 
      <a href="{% url 'nikki:detail_comment' comment.id %}" class="mr-4">キャンセル</a>
-     <button type="submit" class="btn btn-danger">削除する</button>
+     <button type="submit" class="switch-2 btn text-white">削除する</button>
 
    </form>
 

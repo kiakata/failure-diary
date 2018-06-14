@@ -33,6 +33,8 @@ AUTH_USER_MODEL = 'nikki.User'
 LOGIN_URL = 'nikki:login'
 LOGIN_REDIRECT_URL = 'nikki:index'
 
+LOGOUT_REDIRECT_URL = 'nikki:index'
+
 # メールをコンソールに表示する
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

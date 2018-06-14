@@ -1,5 +1,7 @@
 {% extends "nikki/base.html" %}
 
+{% block title %}失敗日記を投稿{% endblock %}
+
 {% block content %}
 
 <div class="container py-3">
@@ -13,7 +15,9 @@
         <!-- これより上がユーザー情報で登録されていた項目で、下がここで登録してもらいたい項目 -->
         {% for field in form %}
           <tr>
-            <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+            <th>
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </th>
             <td>{{ field }} {{ field.errors }}</td>
           </tr>
         {% endfor %}
@@ -56,7 +60,7 @@
     </section>
 
   <div class="text-right mx-5">
-    <button type="submit" name="" class="btn btn-info btn-lg">送信</button>
+    <button type="submit" name="" class="switch btn btn-lg text-white">送信</button>
     {% csrf_token %}
   </div>
 

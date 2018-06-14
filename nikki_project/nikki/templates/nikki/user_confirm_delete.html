@@ -1,4 +1,7 @@
 {% extends "nikki/base.html" %}
+
+{% block title %}退会の確認{% endblock %}
+
 {% block content %}
 <div class="container py-5">
   <div class="col-12 text-center">
@@ -28,7 +31,7 @@
      {{ form }}
 
      <a href="{% url 'nikki:detail_user' user.id %}" class="mr-4">キャンセル</a>
-     <button type="submit" class="btn btn-danger">退会する</button>
+     <button type="submit" class="switch-2 btn text-white">退会する</button>
 
    </form>
   </div>

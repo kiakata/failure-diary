@@ -1,4 +1,7 @@
 {% extends "nikki/base.html" %}
+
+{% block title %}{{ user.nickname }}{% endblock %}
+
 {% block content %}
 <div class="container py-3">
   <table class="table">
@@ -19,17 +22,22 @@
   </table>
 
   <div class="my-3">
-    <a href="{% url 'nikki:update_user' user.pk %}" class="text-secondary mr-5">アカウント情報を編集する</a>
+    <a href="{% url 'nikki:update_user' user.pk %}" class="d-inline-block text-secondary font-weight-normal mr-5">アカウント情報の編集</a>
+    <a href="{% url 'nikki:password_change' %}" class="d-inline-block text-secondary font-weight-normal">パスワード変更</a>
+    <a href="{% url 'nikki:delete_user' user.pk %}" class="d-inline-block text-secondary font-weight-normal ml-sm-5 my-3">退会希望の方はこちら</a>
+    <p class="ml-5">
+      <a class="switch btn btn-lg text-white ml-5 ml-sm-0 mt-3 mb-2" href="{% url 'nikki:create_article' user.pk %}">日記を書く</a>
+    </p>
   </div>
-  <a href="{% url 'nikki:password_change' %}" class="text-secondary">パスワード変更</a>
-  <a href="{% url 'nikki:delete_user' user.pk %}" class="text-secondary ml-5">退会希望の方はこちら</a>
 
   <section class="mt-5">
     <p class="font-weight-bold mb-2">今までに投稿した日記</p>
     <div class="row">
       {% for article in articles_list %}
       <div class="col-4 col-md-3 col-lg-2">
-        <p class="my-1"><a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:10 }}</a></p>
+        <p class="my-1">
+          <a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:10 }}</a>
+        </p>
       </div>
       {% endfor %}
     </div>

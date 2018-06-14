@@ -16,6 +16,10 @@ main {
   font-size: 1.2rem;
 }
 
+h3 > a {
+  color: black;
+}
+
 .post {
   background-color: white;
   box-shadow: rgba(0,0,0,0.1) 0px 1px 1px 0px;
@@ -30,4 +34,8 @@ main {
 
 .posted-at {
   font-size: 0.9rem;
+}
+
+.card-link {
+  color: grey;
 }

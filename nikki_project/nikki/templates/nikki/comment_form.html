@@ -1,5 +1,7 @@
 {% extends 'nikki/base.html' %}
 
+{% block title %}コメント投稿{% endblock %}
+
 {% block content %}
 <div class="container py-3">
   <p> ニックネーム：{{ user.nickname }}</p>
@@ -13,7 +15,7 @@
     </div>
     {% endfor %}
     {% csrf_token %}
-    <button type="submit" class="btn btn-info">送信</button>
+    <button type="submit" class="switch btn btn-lg text-white">送信</button>
   </form>
 </div>
 {% endblock %}
