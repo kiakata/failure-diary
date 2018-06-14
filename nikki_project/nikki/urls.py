@@ -10,6 +10,8 @@ urlpatterns = [
     path('search/', views.SearchList.as_view(), name='search'),
     path('about/', views.AboutView.as_view(), name='about'),
     path('contact/', views.ContactView.as_view(), name='contact'),
+    path('rules/', views.RulesView.as_view(), name='rules'),
+    path('privacy/', views.PrivacyView.as_view(), name='privacy'),
     # User
     path('create_user/', views.CreateUser.as_view(), name='create_user'),
     path('create_user/done', views.CreateUserDone.as_view(), name='create_user_done'),

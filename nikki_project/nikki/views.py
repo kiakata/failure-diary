@@ -446,3 +446,16 @@ class ContactView(FormView):
         messages.success(self.request, 'メッセージを送信しました')
         return super(ContactView, self).form_valid(form)
 
+
+class RulesView(generic.TemplateView):
+    """
+    利用規約ページ
+    """
+    template_name = 'nikki/rules.html'
+
+
+class PrivacyView(generic.TemplateView):
+    """
+    プライバシーポリシー
+    """
+    template_name = 'nikki/privacy.html'
