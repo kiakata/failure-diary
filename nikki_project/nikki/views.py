@@ -296,22 +296,32 @@ class DetailArticle(generic.DetailView):
         return context
 
 
-class UpdateArticle(generic.UpdateView):
-    model = Article
-    form_class = ArticleForm
+def update_article(request, pk):
+    """
+    日記更新ページ
+    """
+    template_name = 'nikki/article_form.html'
+    article = get_object_or_404(Article, pk=pk)
+    form = ArticleForm(request.POST or None, instance=article,  initial = {
+    'category_id': article.category_id})
 
-    def get_success_url(self):
-        article_pk = self.kwargs['pk']
-        url = reverse_lazy("nikki:detail_article", kwargs={"pk": article_pk})
-        return url
+    if request.method == 'POST':
+        if form.is_valid():
+            posted_category_id = request.POST.get('category_id')
+            article.category_id = Category.objects.get(pk = posted_category_id)
+            article.category_id.save()
+            messages.success(request, '記事を更新しました')
+            form.save()
+            return redirect('nikki:detail_article', pk=pk)
+        else:
+            messages.error(request, "記事の更新に失敗しました")
+            return redirect('nikki:detail_article', pk=user_id)
 
-    def form_valid(self, form):
-        messages.success(self.request, "記事の内容を更新しました")
-        return super().form_valid(form)
+    context = {
+    'form': form
+    }
+    return render(request, 'nikki/article_form.html', context)
 
-    def form_invalid(self, form):
-        messages.error(self.request, "記事の内容を更新できませんでした")
-        return super().form_invalid(form)
 
 
 class DeleteArticle(generic.DeleteView):

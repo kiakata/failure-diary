@@ -28,7 +28,7 @@ urlpatterns = [
     # Article
     path('create_article/<int:user_id>', views.create_article, name='create_article'),
     path('detail_article/<int:pk>', views.DetailArticle.as_view(), name='detail_article'),
-    path('update_article/<int:pk>', views.UpdateArticle.as_view(), name='update_article'),
+    path('update_article/<int:pk>', views.update_article, name='update_article'),
     path('delete_article/<int:pk>', views.DeleteArticle.as_view(), name='delete_article'),
     path('author_articles/<int:user_id>', views.AuthorArticles.as_view(), name='author_articles'),
     path('category/<int:pk>/', views.CategoryView.as_view(), name='category'),
