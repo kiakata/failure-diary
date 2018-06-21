@@ -11,10 +11,12 @@
   <meta name="description" content="失敗を投稿してみませんか？">
   <meta name="author" content="Takaaki Uno">
 
+  <meta name="apple-mobile-web-app-title" content="失敗diary">
+
   <!-- favicon -->
   <link rel="icon" type="image/x-icon" href="{% static 'nikki/favicons/favicon.ico' %}">
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'nikki/favicons/apple-touch-icon.png' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'nikkifavicons/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'nikki/favicons/favicon-32x32.png' %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'nikki/favicons/favicon-16x16.png' %}">
   <link rel="icon" type="image/png" sizes="192x192" href="{% static 'nikki/favicons/android-chrome-192×192.png' %}">
   <link rel="icon" type="image/png" sizes="512x512" href="{% static 'nikki/favicons/android-chrome-512×512.png' %}">
@@ -49,7 +51,7 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-light">
       <a class="navbar-brand font-weight-bold text-white" href="{% url 'nikki:index' %}">
-        ぼくたちの失敗日記
+        失敗diary
       </a>
       <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -70,7 +72,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link font-weight-bold text-white"  href="{% url 'nikki:detail_user' user.pk %}">
-              {{ user.nickname }}
+              {{ user.nickname|truncatechars:12 }}
             </a>
           </li>
             {% else %}
@@ -95,7 +97,7 @@
     <ul class="list-unstyled">
       {% for message in messages %}
       <li{% if message.tags %}
-        class=" font-weight-bold alert alert-{% if message.tags == 'error' %}danger{% else %}info{% endif %}"{% endif %}>
+        class=" font-weight-bold alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"{% endif %}>
         {{ message }}
         <button type="button" class="close" aria-label="Close" data-dismiss="alert">
           <span aria-hidden="true">&times;</span>
@@ -116,28 +118,42 @@
           <ul class="list-unstyled">
             <li>
               <a  class="text-secondary d-inline-block" href="{% url 'nikki:about' %}" style="text-decoration: none;">
-                ぼくたちの失敗日記とは
+                失敗diaryとは
               </a>
             </li>
           </ul>
         </div>
+
+        {% if user.is_authenticated %}
+        <div class="col-12 col-md-6">
+          <ul class="list-unstyled">
+            <li>
+              <a class="text-secondary" href="{% url 'nikki:detail_user' user.pk %}" style="text-decoration: none;">
+                アカウント情報
+              </a>
+            </li>
+          </ul>
+        </div>
+        {% endif %}
+
         <div class="col-12 col-md-6">
           <ul class="list-unstyled">
             {% if user.is_authenticated %}
             <li>
-              <a class="text-secondary" href="{% url 'nikki:logout' %}"  style="text-decoration: none;">
+              <a class="text-secondary" href="{% url 'nikki:logout' %}" style="text-decoration: none;">
                 ログアウト
               </a>
             </li>
             {% else %}
             <li>
-              <a class="text-secondary" href="{% url 'nikki:login' %}"  style="text-decoration: none;">
+              <a class="text-secondary" href="{% url 'nikki:login' %}" style="text-decoration: none;">
                 新規登録/ログイン
               </a>
             </li>
             {% endif %}
           </ul>
         </div>
+
         <div class="col-12 col-md-6">
           <ul class="list-unstyled">
             <li>
@@ -153,6 +169,7 @@
             </li>
           </ul>
         </div>
+
         <div class="col-12 col-md-6">
           <ul class="list-unstyled">
             <li>
@@ -162,6 +179,7 @@
             </li>
           </ul>
         </div>
+
         <div class="col-12 col-md-6">
           <ul class="list-unstyled">
             <li>
@@ -171,6 +189,7 @@
             </li>
           </ul>
         </div>
+
         <div class="col-12 col-md-6">
           <ul class="list-unstyled">
             <li>

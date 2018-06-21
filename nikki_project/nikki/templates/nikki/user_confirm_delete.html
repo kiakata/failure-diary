@@ -4,36 +4,31 @@
 
 {% block content %}
 <div class="container py-5">
-  <div class="col-12 text-center">
+  <div class="col-12">
+    <div class="text-center">
     <h3>退会の確認</h3>
     <p class="text-danger">以下のアカウントを削除して退会しますか？</p>
-    <p>アカウントを削除すると、投稿したすべての日記は削除されます。</p>
+    <p>アカウントを削除すると、投稿したすべての日記、コメントは削除されます。</p>
+  </div>
 
-    <table class="table">
-      <tbody>
-        <tr>
-          <th>ニックネーム</th>
-          <td>{{ user.nickname }}</td>
-        </tr>
-        <tr>
-          <th>メールアドレス</th>
-          <td>{{ user.email }}</td>
-        </tr>
-        <tr>
-          <th>年代</th>
-          <td>{{ user.agegroup }}代</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="mx-3 mb-5">
+      <p class="border-top text-secondary font-weight-bold mb-0 pt-3">ニックネーム</p>
+      <p class="text">{{ user.nickname }}</p>
+      <p class="border-top text-secondary font-weight-bold mb-0 pt-3">年代</p>
+      <p>{{ user.agegroup }}</p>
+      <p class="border-top text-secondary font-weight-bold mb-0 pt-3">メールアドレス</p>
+      <p class="text">{{ user.email }}</p>
+    </div>
 
     <form method="POST">
     {% csrf_token %}
      {{ form }}
-
-     <a href="{% url 'nikki:detail_user' user.id %}" class="mr-4">キャンセル</a>
-     <button type="submit" class="switch-2 btn text-white">退会する</button>
-
+     <div class="text-center">
+       <a href="{% url 'nikki:detail_user' user.id %}" class="mr-4">キャンセル</a>
+       <button type="submit" class="switch-2 btn text-white">退会する</button>
+     </div>
    </form>
+
   </div>
 </div>
 {% endblock %}

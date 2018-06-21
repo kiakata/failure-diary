@@ -14,7 +14,9 @@
     </div>
     {% endfor %}
     {% csrf_token %}
-    <button type="submit" class="switch btn btn-lg text-white">送信</button>
+    <div class="text-right mt-4 mr-1">
+      <button type="submit" class="switch btn btn-lg text-white">送信</button>
+    </div>
   </form>
 </div>
 {% endblock %}

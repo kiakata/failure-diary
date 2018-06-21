@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'nikki/index.css' %}">
 {% endblock %}
 
-{% block title %}ぼくたちの失敗日記{% endblock %}
+{% block title %}失敗diary{% endblock %}
 
 {% block content %}
 <div class="container py-5">
@@ -15,7 +15,7 @@
       <div class="post">
         <div class="row">
           <div class="col-12">
-            <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+            <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}</p>
             <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
             <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
           </div>

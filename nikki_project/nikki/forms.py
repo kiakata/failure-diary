@@ -107,8 +107,10 @@ class ArticleForm(forms.ModelForm):
     CATEGORYS = ((e.id, e.name) for e in Category.objects.all())
 
     category_id = forms.ChoiceField(label='カテゴリ', choices=CATEGORYS)
-    title = forms.CharField(label='タイトル', max_length=100)
-    text = forms.CharField(label='本文', widget=forms.Textarea, max_length=1000)
+    title = forms.CharField(label='タイトル', max_length=100, widget=forms.TextInput(
+            attrs={'placeholder':'タイトル',}))
+    text = forms.CharField(label='本文', widget=forms.Textarea(
+            attrs={'placeholder':'本文', 'class':'article_text'}), max_length=2500)
     failure_image = forms.ChoiceField(label='画像選択', choices=Article.IMAGES)
 
 
