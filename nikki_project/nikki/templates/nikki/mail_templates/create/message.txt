@@ -6,4 +6,4 @@
 本登録用URL
 {{ protocol}}://{{ domain }}{% url 'nikki:create_user_complete' uidb64 token %}
 
-僕たちの失敗日記
+失敗diary

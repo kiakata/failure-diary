@@ -16,6 +16,18 @@ main {
   font-size: 1.2rem;
 }
 
+.category a {
+  background-color: white;
+  box-shadow: rgba(0,0,0,0.1) 0px 1px 1px 0px;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+
+.category a:hover {
+  filter: alpha(opacity=70);
+  opacity: 0.5;
+}
+
 h3 > a {
   color: black;
 }

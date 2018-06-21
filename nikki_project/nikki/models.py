@@ -135,7 +135,7 @@ class Article(models.Model):
     text = models.TextField('本文', max_length=1000, blank=False ,null=False)
     created_at = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)
-    user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, verbose_name='カテゴリー名', on_delete=models.PROTECT)
     failure_image = models.IntegerField('失敗の画像イメージ', blank=False, null=True)
 
@@ -150,8 +150,8 @@ class Comment(models.Model):
     ブログのコメント
     """
     text = models.TextField('本文')
-    user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.PROTECT)
-    article = models.ForeignKey(Article, verbose_name='紐づく記事', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, verbose_name='ユーザー名', on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, verbose_name='紐づく記事', on_delete=models.CASCADE)
     text = models.TextField('本文')
     created_at = models.DateTimeField('作成日時', auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField('更新日時', auto_now=True, blank=True, null=True)

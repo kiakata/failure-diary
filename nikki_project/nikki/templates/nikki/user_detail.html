@@ -4,39 +4,48 @@
 
 {% block content %}
 <div class="container py-3">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>ニックネーム</th>
-        <td>{{ user.nickname }}</td>
-      </tr>
-      <tr>
-        <th>メールアドレス</th>
-        <td>{{ user.email }}</td>
-      </tr>
-      <tr>
-        <th>年代</th>
-        <td>{{ user.agegroup }}代</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="my-3">
-    <a href="{% url 'nikki:update_user' user.pk %}" class="d-inline-block text-secondary font-weight-normal mr-5">アカウント情報の編集</a>
-    <a href="{% url 'nikki:password_change' %}" class="d-inline-block text-secondary font-weight-normal">パスワード変更</a>
-    <a href="{% url 'nikki:delete_user' user.pk %}" class="d-inline-block text-secondary font-weight-normal ml-sm-5 my-3">退会希望の方はこちら</a>
-    <p class="ml-5">
-      <a class="switch btn btn-lg text-white ml-5 ml-sm-0 mt-3 mb-2" href="{% url 'nikki:create_article' user.pk %}">日記を書く</a>
-    </p>
+  <div class="mx-3 mb-5">
+    <p class="border-top text-secondary font-weight-bold mb-0 pt-3">ニックネーム</p>
+    <p class="text">{{ user.nickname }}</p>
+    <p class="border-top text-secondary font-weight-bold mb-0 pt-3">年代</p>
+    <p>{{ user.agegroup }}</p>
+    <p class="border-top text-secondary font-weight-bold mb-0 pt-3">メールアドレス</p>
+    <p class="text">{{ user.email }}</p>
   </div>
 
-  <section class="mt-5">
-    <p class="font-weight-bold mb-2">今までに投稿した日記</p>
-    <div class="row">
+  <div class="row my-5 my-md-4 text-center mx-auto">
+    <div class="col-12 col-md-4 mb-4">
+      <a class="d-inline-block text-secondary font-weight-normal" href="{% url 'nikki:update_user' user.pk %}">
+        アカウント情報の編集
+      </a>
+    </div>
+
+    <div class="col-12 col-md-4 mb-4">
+      <a class="d-inline-block text-secondary font-weight-normal" href="{% url 'nikki:password_change' %}">
+        パスワード変更
+      </a>
+    </div>
+
+    <div class="col-12 col-md-4 mb-3">
+      <a class="d-inline-block text-secondary font-weight-normal" href="{% url 'nikki:delete_user' user.pk %}">
+        退会希望の方はこちら
+      </a>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <a class="switch btn btn-lg text-white mt-1 mb-2" href="{% url 'nikki:create_article' user.pk %}">
+      日記を書く
+    </a>
+  </div>
+
+  <section class="mt-5 mb-4">
+    <p class="text-center font-weight-bold text-secondary mb-2">今までに投稿した日記</p>
+    <div class="row mx-auto">
       {% for article in articles_list %}
-      <div class="col-4 col-md-3 col-lg-2">
-        <p class="my-1">
-          <a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:10 }}</a>
+      <div class="col-6 col-md-4 col-lg-3">
+        <p class="my-2">
+          <a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:20 }}</a>
         </p>
       </div>
       {% endfor %}

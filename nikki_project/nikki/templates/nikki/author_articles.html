@@ -11,7 +11,7 @@
   <div class="">
 
   {% for tentative in tentative_list %}
-  <p class="border-bottom pb-2 font-weight-bold">{{ tentative.user.nickname }}：{{ tentative.user.agegroup }}代</p>
+  <p class="border-bottom pb-2 font-weight-bold">{{ tentative.user.nickname }}：{{ tentative.user.agegroup }}</p>
   {% endfor %}
   </div>
 
@@ -24,7 +24,7 @@
         <div class="post">
           <div class="row">
             <div class="col-12 col-sm-9">
-              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}代</p>
+              <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}</p>
               <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
               <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
             </div>

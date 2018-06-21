@@ -5,4 +5,4 @@
 再設定用URL
 {{ protocol}}://{{ domain }}{% url 'nikki:password_reset_confirm' uid token %}
 
-ぼくたちの失敗日記
+失敗diary

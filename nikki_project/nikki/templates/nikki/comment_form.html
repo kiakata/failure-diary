@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container py-3">
-  <p> ニックネーム：{{ user.nickname }}</p>
+  <p class="text"> ニックネーム：{{ user.nickname }}</p>
   <form action="" method="POST">
     {{ form.non_field_errors }}
     {% for field in form %}
@@ -15,7 +15,9 @@
     </div>
     {% endfor %}
     {% csrf_token %}
-    <button type="submit" class="switch btn btn-lg text-white">送信</button>
+    <div class="text-right mr-1 mt-4">
+      <button type="submit" class="switch btn btn-lg text-white">送信</button>
+    </div>
   </form>
 </div>
 {% endblock %}

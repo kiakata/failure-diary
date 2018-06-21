@@ -243,12 +243,12 @@ class ArticleList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category_study'] = Article.objects.filter(category=1).order_by('-created_at')[:4]
-        context['category_school'] = Article.objects.filter(category=2).order_by('-created_at')[:4]
-        context['category_work'] = Article.objects.filter(category=3).order_by('-created_at')[:4]
-        context['category_life'] = Article.objects.filter(category=4).order_by('-created_at')[:4]
-        context['category_love'] = Article.objects.filter(category=5).order_by('-created_at')[:4]
-        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_at')[:4]
+        context['category_life'] = Article.objects.filter(category=1).order_by('-created_at')[:3]
+        context['category_work'] = Article.objects.filter(category=2).order_by('-created_at')[:3]
+        context['category_school'] = Article.objects.filter(category=3).order_by('-created_at')[:3]
+        context['category_love'] = Article.objects.filter(category=4).order_by('-created_at')[:3]
+        context['category_study'] = Article.objects.filter(category=5).order_by('-created_at')[:3]
+        context['category_triviality'] = Article.objects.filter(category=6).order_by('-created_at')[:3]
         return context
 
 
@@ -276,7 +276,6 @@ def create_article(request, user_id):
         else:
             messages.error(request, "日記の投稿に失敗しました")
             return redirect('nikki:detail_user', pk=user_id)
-
 
     context = {
     'form':form
@@ -321,7 +320,6 @@ def update_article(request, pk):
     'form': form
     }
     return render(request, 'nikki/article_form.html', context)
-
 
 
 class DeleteArticle(generic.DeleteView):

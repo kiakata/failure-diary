@@ -1,13 +1,5 @@
 @charset "utf-8";
 
-.title {
-  word-wrap:break-word;
-}
-
-.text {
-  word-wrap:break-word;
-}
-
 button>a {
   color: white;
   text-decoration: none;
