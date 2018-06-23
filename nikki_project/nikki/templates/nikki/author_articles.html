@@ -16,7 +16,7 @@
   </div>
 
   <section class="pb-5 mb-3">
-    <h5 class="ml-5">過去の記事一覧</h5>
+    <h3 class="ml-5">過去の記事一覧</h3>
     {% include 'nikki/pagination.html' %}
     <div class="row">
       {% for article in article_list %}
@@ -25,8 +25,8 @@
           <div class="row">
             <div class="col-12 col-sm-9">
               <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}</p>
-              <h5 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
-              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+              <h4 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h4>
+              <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">
               {% if article.failure_image == 1 %}
