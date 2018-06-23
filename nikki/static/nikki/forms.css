@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+.choice_table {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .choice_table {
+    width: 75%;
+  }
+}

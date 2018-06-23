@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+button>a {
+  color: white;
+  text-decoration: none;
+}
+
+button>a:hover {
+  color: white;
+}
+
+.comment {
+  border-top-style: ridge;
+}
