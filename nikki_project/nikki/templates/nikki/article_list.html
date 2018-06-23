@@ -10,7 +10,7 @@
 {{ category_work.article }}
 <section class="message" >
   <div class="jumbotron pt-5 pb-3 bg-white">
-    <h3 class="display-5">失敗を日記に記して、一区切りつけませんか？</h3>
+    <h1 class="display-5">失敗を日記に記して、一区切りつけませんか？</h1>
     <hr class="my-2">
     <p>自分のSNSアカウントに書くのはちょっと嫌だけど、このサイトだけのニックネームでなら書いてみたいかも。</p>
     <div class="sadness text-center">
@@ -43,9 +43,9 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5">
+    <h2 class="ml-md-5 pl-lg-5">
       <a href="{% url 'nikki:category' pk=1 %}">日常</a>
-    </h3>
+    </h2>
     <div class="row">
       {% for article in category_life %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
@@ -55,8 +55,10 @@
               <p class="profile text">
                 <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}</a>
               </p>
-              <h5 class="title font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
-              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+              <h3 class="title font-weight-bold">
+                {{ article.title|truncatechars:24 }}
+              </h3>
+              <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">
               {% if article.failure_image == 1 %}
@@ -90,9 +92,9 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5">
+    <h2 class="ml-md-5 pl-lg-5">
       <a href="{% url 'nikki:category' pk=2 %}">仕事</a>
-    </h3>
+    </h2>
     <div class="row">
       {% for article in category_work %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
@@ -102,8 +104,10 @@
               <p class="profile text">
                 <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}</a>
               </p>
-              <h5 class="title font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
-              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+              <h3 class="title font-weight-bold">
+                {{ article.title|truncatechars:24 }}
+              </h3>
+              <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">
               {% if article.failure_image == 1 %}
@@ -137,9 +141,9 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5">
+    <h2 class="ml-md-5 pl-lg-5">
       <a href="{% url 'nikki:category' pk=3 %}">学校</a>
-    </h3>
+    </h2>
     <div class="row">
       {% for article in category_school %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
@@ -149,8 +153,10 @@
               <p class="profile text">
                 <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}</a>
               </p>
-              <h5 class="title font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
-              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+              <h3 class="title font-weight-bold">
+                {{ article.title|truncatechars:24 }}
+              </h3>
+              <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">
               {% if article.failure_image == 1 %}
@@ -184,9 +190,9 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5">
+    <h2 class="ml-md-5 pl-lg-5">
       <a href="{% url 'nikki:category' pk=4 %}">恋愛</a>
-    </h3>
+    </h2>
     <div class="row">
       {% for article in category_love %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
@@ -196,8 +202,10 @@
               <p class="profile text">
                 <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}</a>
               </p>
-              <h5 class="title font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
-              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+              <h3 class="title font-weight-bold">
+                {{ article.title|truncatechars:24 }}
+              </h3>
+              <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">
               {% if article.failure_image == 1 %}
@@ -231,9 +239,9 @@
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5">
+    <h2 class="ml-md-5 pl-lg-5">
       <a href="{% url 'nikki:category' pk=5 %}">勉強</a>
-    </h3>
+    </h2>
     <div class="row">
       {% for article in category_study %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
@@ -243,8 +251,10 @@
               <p class="text profile">
                 <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}</a>
               </p>
-              <h5 class="title font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
-              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+              <h3 class="title font-weight-bold">
+                {{ article.title|truncatechars:24 }}
+              </h3>
+              <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">
               {% if article.failure_image == 1 %}
@@ -278,9 +288,9 @@
   </section>
 
   <section class="pb-sm-5 mb-3">
-    <h3 class="ml-md-5 pl-lg-5">
+    <h2 class="ml-md-5 pl-lg-5">
       <a href="{% url 'nikki:category' pk=6 %}">その他</a>
-    </h3>
+    </h2>
     <div class="row">
       {% for article in category_triviality %}
       <div class="col-12 offset-md-1 col-md-9 offset-lg-2 col-lg-8">
@@ -290,8 +300,10 @@
               <p class="text profile">
                 <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}</a>
               </p>
-              <h5 class="title font-weight-bold">{{ article.title|truncatechars:24 }}</h5>
-              <h6 class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</h6>
+              <h3 class="title font-weight-bold">
+                {{ article.title|truncatechars:24 }}
+              </h3>
+              <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">
               {% if article.failure_image == 1 %}

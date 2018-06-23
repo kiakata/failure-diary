@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container py-5">
-  <h2 class="title text-center font-weight-bold">{{ article.user.nickname }}の日記</h2>
+  <h1 class="title text-center font-weight-bold">{{ article.user.nickname }}の日記</h1>
   <div class="row">
     <div class="created_at col-3 col-md-2">
       {{ article.created_time|date:"Y/n/d" }}
@@ -37,11 +37,11 @@
         {% endif %}
       </section>
 
-      <h3 class="title text-center mt-4">{{ article.title }}</h3>
+      <h2 class="title text-center mt-4">{{ article.title }}</h2>
       <div class="text container py-3">
-        <h6 class="posted-at font-weight-light text-muted">
+        <p class="posted-at font-weight-light text-muted">
           {{ article.created_at|date:"Y/n/d" }}
-        </h6>
+        </p>
         {{ article.text | linebreaksbr | urlize}}
       </div>
 
