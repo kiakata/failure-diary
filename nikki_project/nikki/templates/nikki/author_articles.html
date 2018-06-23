@@ -8,15 +8,13 @@
 
 {% block content %}
 <div class="container py-5">
-  <div class="">
-
-  {% for tentative in tentative_list %}
-  <p class="border-bottom pb-2 font-weight-bold">{{ tentative.user.nickname }}：{{ tentative.user.agegroup }}</p>
-  {% endfor %}
-  </div>
-
   <section class="pb-5 mb-3">
-    <h3 class="ml-5">過去の記事一覧</h3>
+    {% for tentative in tentative_list %}
+    <h1 class="ml-5">
+      {{ tentative.user.nickname }}の過去の記事一覧
+    </h1>
+    {% endfor %}
+
     {% include 'nikki/pagination.html' %}
     <div class="row">
       {% for article in article_list %}
@@ -25,7 +23,7 @@
           <div class="row">
             <div class="col-12 col-sm-9">
               <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}</p>
-              <h4 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h4>
+              <h2 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h2>
               <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 col-sm-3 text-center">

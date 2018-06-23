@@ -16,7 +16,7 @@
 
   <section class="pb-5 mb-0">
     <div class="">
-      <h3>{{ category_name }}の失敗diary</h3>
+      <h1>{{ category_name }}の失敗diary</h1>
     </div>
     {% include 'nikki/pagination.html' %}
     <div class="row mb-3">
@@ -28,7 +28,7 @@
               <p class="profile">
                 <a href="{% url 'nikki:author_articles' article.user.pk %}">{{ article.user.nickname }} {{ article.user.agegroup }}</a>
               </p>
-              <h4 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h4>
+              <h2 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h2>
               <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
             </div>
             <div class=" sadness col-12 text-center">

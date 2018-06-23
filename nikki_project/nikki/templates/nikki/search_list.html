@@ -8,6 +8,7 @@
 
 {% block content %}
 <div class="container py-5">
+  <h1>検索結果一覧</h1>
   {% include 'nikki/pagination.html' %}
   <div class="row mb-3">
     {% for article in article_list %}
@@ -15,8 +16,12 @@
       <div class="post">
         <div class="row">
           <div class="col-12">
-            <p class="profile">{{ article.user.nickname }} {{ article.user.agegroup }}</p>
-            <h4 class="font-weight-bold">{{ article.title|truncatechars:24 }}</h4>
+            <p class="profile">
+              {{ article.user.nickname }} {{ article.user.agegroup }}
+            </p>
+            <h2 class="font-weight-bold">
+              {{ article.title|truncatechars:24 }}
+            </h2>
             <p class="posted-at font-weight-light text-muted">{{ article.created_at|date:"Y/n/d" }}</p>
           </div>
           <div class=" sadness col-12 text-center">
