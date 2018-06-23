@@ -97,16 +97,16 @@ class ArticleForm(forms.ModelForm):
     """
     class Meta:
         model = Article
-        fields = ('title', 'text', 'failure_image')
+        fields = ('category_id', 'title', 'text', 'failure_image')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
-    # CATEGORYS = ((e.id, e.name) for e in Category.objects.all())
-    #
-    # category_id = forms.ChoiceField(label='カテゴリ', choices=CATEGORYS)
+    CATEGORYS = ((e.id, e.name) for e in Category.objects.all())
+
+    category_id = forms.ChoiceField(label='カテゴリ', choices=CATEGORYS)
     title = forms.CharField(label='タイトル', max_length=100, widget=forms.TextInput(
             attrs={'placeholder':'タイトル',}))
     text = forms.CharField(label='本文', widget=forms.Textarea(
