@@ -67,8 +67,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     agegroup = models.CharField('年代', max_length=10, blank=False)
     # gender = models.CharField('性別', max_length=2, blank=True)
 
-    AGEGROUPS = (('under10', '10歳未満'), ('10', '10代'), ('20', '20代'), ('30', '30代'),
-    ('40', '40代'), ('50', '50代'), ('60', '60代'), ('70', '70代'), ('over80', '80歳以上'))
+    AGEGROUPS = (('10歳未満', '10歳未満'), ('10代', '10代'), ('20代', '20代'), ('30代', '30代'),
+    ('40代', '40代'), ('50代', '50代'), ('60代', '60代'), ('70代', '70代'), ('80歳以上', '80歳以上'), ('90歳以上', '90歳以上'))
 
 
     is_staff = models.BooleanField(
