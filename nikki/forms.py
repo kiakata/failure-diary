@@ -104,9 +104,10 @@ class ArticleForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
-    CATEGORYS = ((e.id, e.name) for e in Category.objects.all())
+    # CATEGORYS = ((e.id, e.name) for e in Category.objects.all())
+    CATEGORIES = ((1, '日常'), (2, '仕事'), (3, '学校'), (4, '恋愛'), (5, '勉強'), (6, 'その他'))
 
-    category_id = forms.ChoiceField(label='カテゴリ', choices=CATEGORYS)
+    category_id = forms.ChoiceField(label='カテゴリ', choices=CATEGORIES)
     title = forms.CharField(label='タイトル', max_length=100, widget=forms.TextInput(
             attrs={'placeholder':'タイトル',}))
     text = forms.CharField(label='本文', widget=forms.Textarea(
