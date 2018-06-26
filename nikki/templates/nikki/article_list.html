@@ -37,9 +37,12 @@
 
 <div class="container pb-4">
   <section class="category text-center my-4">
-    {% for category in category_list %}
-    <a href="{% url 'nikki:category' category.pk %}" class="d-inline-block mb-3 mr-4" style="text-decoration:none;">{{ category }}</a>
-    {% endfor %}
+    <a href="{% url 'nikki:category' pk=1 %}" class="d-inline-block mb-3 mr-4" style="text-decoration:none;">日常</a>
+    <a href="{% url 'nikki:category' pk=2 %}" class="d-inline-block mb-3 mr-4" style="text-decoration:none;">仕事</a>
+    <a href="{% url 'nikki:category' pk=3 %}" class="d-inline-block mb-3 mr-4" style="text-decoration:none;">学校</a>
+    <a href="{% url 'nikki:category' pk=4 %}" class="d-inline-block mb-3 mr-4" style="text-decoration:none;">恋愛</a>
+    <a href="{% url 'nikki:category' pk=5 %}" class="d-inline-block mb-3 mr-4" style="text-decoration:none;">勉強</a>
+    <a href="{% url 'nikki:category' pk=6 %}" class="d-inline-block mb-3 mr-4" style="text-decoration:none;">その他</a>
   </section>
 
   <section class="pb-2 pb-sm-5 mb-3">
