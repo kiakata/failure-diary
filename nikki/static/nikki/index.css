@@ -21,6 +21,7 @@ main {
   box-shadow: rgba(0,0,0,0.1) 0px 1px 1px 0px;
   padding: 7px 10px;
   border-radius: 5px;
+  text-decoration: none;
 }
 
 .category a:hover {

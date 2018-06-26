@@ -44,8 +44,8 @@
     <div class="row mx-auto">
       {% for article in articles_list %}
       <div class="col-6 col-md-4 col-lg-3">
-        <p class="my-2">
-          <a href="{% url 'nikki:detail_article' article.id %}" style="color:black;">{{ article.title|truncatechars_html:20 }}</a>
+        <p class="title my-2">
+          <a href="{% url 'nikki:detail_article' article.id %}">{{ article.title|truncatechars_html:20 }}</a>
         </p>
       </div>
       {% endfor %}
