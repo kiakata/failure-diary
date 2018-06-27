@@ -8,12 +8,18 @@ main {
   box-shadow: rgba(0,0,0,0.1) 0px 0px 1px 0px;
 }
 
+.jumbotron {
+  padding: 25px 20px;
+  margin-bottom: 0;
+}
+
 .sadness img {
   width: 100px;
 }
 
 .category {
   font-size: 1.2rem;
+  margin-bottom: 15px;
 }
 
 .category a {

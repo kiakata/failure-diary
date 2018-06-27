@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container">
-  <section class="category text-center py-5">
+  <section class="category text-center">
     {% for category in category_list %}
     <a href="{% url 'nikki:category' category.pk %}" class="d-inline-block mb-2 mr-4">{{ category }}</a>
     {% endfor %}

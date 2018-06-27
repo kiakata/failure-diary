@@ -20,7 +20,7 @@ footer a:hover {
 
 /* //////common////// */
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 h2 {
@@ -29,6 +29,10 @@ h2 {
 
 h3 {
   font-size: 1.3rem;
+}
+
+.container {
+  padding: 30px 15px;
 }
 
 .switch {
