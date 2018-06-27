@@ -3,7 +3,7 @@
 {% block title %}{{ comment.user.nickname }}さんのコメント{% endblock %}
 
 {% block content %}
-<div class="container py-5">
+<div class="container">
 <h1 class="text-center">{{ comment.user.nickname }}さんのコメント</h1>
 <div class="text py-3">
   {{ comment.text | linebreaksbr | urlize}}

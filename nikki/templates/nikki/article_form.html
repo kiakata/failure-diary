@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<div class="container py-3">
+<div class="container">
   <form class="" action="" method="POST">
     <h1 class="text-center my-3">
       <span class="text font-weight-bold">{{ user.nickname }}</span>の日記
@@ -25,37 +25,37 @@
     </div>
 
     <div class="">
-      <section class="container text-center mt-3 pb-4 pr-3">
+      <section class="images container text-center mt-3 pb-4 pr-3">
         <div class="row">
           {% load static %}
           <div class="col-4 col-md-3 col-lg-2">
             <p class="mb-0">【１】</p>
-            <img border="0" src="{% static 'nikki/images/level1.png' %}" width="60" height="60" alt="イラスト1">
+            <img src="{% static 'nikki/images/level1.png' %}" alt="イラスト1">
           </div>
 
           <div class="col-4 col-md-3 col-lg-2">
             <p class="mb-0">【２】</p>
-            <img border="0" src="{% static 'nikki/images/level2.png' %}" width="60" height="60" alt="イラスト2">
+            <img src="{% static 'nikki/images/level2.png' %}" alt="イラスト2">
           </div>
 
           <div class="col-4 col-md-3 col-lg-2">
             <p class="mb-0">【３】</p>
-            <img border="0" src="{% static 'nikki/images/level3.png' %}" width="60" height="60" alt="イラスト3">
+            <img src="{% static 'nikki/images/level3.png' %}" alt="イラスト3">
           </div>
 
           <div class="col-4 col-md-3 col-lg-2">
             <p class="mb-0">【４】</p>
-            <img border="0" src="{% static 'nikki/images/level4.png' %}" width="60" height="60" alt="イラスト4">
+            <img src="{% static 'nikki/images/level4.png' %}" alt="イラスト4">
           </div>
 
           <div class="col-4 col-md-3 col-lg-2">
             <p class="mb-0">【５】</p>
-            <img border="0" src="{% static 'nikki/images/level5.png' %}" width="60" height="60" alt="イラスト5">
+            <img src="{% static 'nikki/images/level5.png' %}" alt="イラスト5">
           </div>
 
           <div class="col-4 col-md-3 col-lg-2">
             <p class="mb-0">【６】</p>
-            <img border="0" src="{% static 'nikki/images/level6.png' %}" width="60" height="60" alt="イラスト6">
+            <img src="{% static 'nikki/images/level6.png' %}" alt="イラスト6">
           </div>
         </div>
       </section>
