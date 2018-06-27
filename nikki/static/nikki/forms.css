@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.images img {
+  height: 60px;
+  width: 60px
+}
+
 @media (min-width: 768px) {
   .choice_table {
     width: 75%;
