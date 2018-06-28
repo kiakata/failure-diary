@@ -20,14 +20,13 @@
       {{ form.title }}
     </div>
     <div class="mb-4">
-      {{ form.subject.errors }}
+      {{ form.text.errors }}
       {{ form.text }}
     </div>
 
     <div class="">
       <section class="images container text-center mt-3 pb-4 pr-3">
         <div class="row">
-          {% load static %}
           <div class="col-4 col-md-3 col-lg-2">
             <p class="mb-0">【１】</p>
             <img src="{% static 'nikki/images/level1.png' %}" alt="イラスト1">
