@@ -80,7 +80,7 @@
             </div>
           </div>
           <p class="text">
-            {{ article.text|linebreaksbr|truncatechars:60  }}
+            {{ article.get_text_as_markdown|linebreaksbr|truncatechars:15  }}
           </p>
           <p>
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
@@ -129,7 +129,7 @@
             </div>
           </div>
           <p class="text">
-            {{ article.text|linebreaksbr|truncatechars:60  }}
+            {{ article.get_text_as_markdown|linebreaksbr|truncatechars:15  }}
           </p>
           <p>
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
@@ -178,7 +178,7 @@
             </div>
           </div>
           <p class="text">
-            {{ article.text|linebreaksbr|truncatechars:60  }}
+            {{ article.get_text_as_markdown|linebreaksbr|truncatechars:15  }}
           </p>
           <p>
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
@@ -227,7 +227,7 @@
             </div>
           </div>
           <p class="text">
-            {{ article.text|linebreaksbr|truncatechars:60  }}
+            {{ article.get_text_as_markdown|linebreaksbr|truncatechars:15  }}
           </p>
           <p>
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
@@ -276,7 +276,7 @@
             </div>
           </div>
           <p class="text">
-            {{ article.text|linebreaksbr|truncatechars:60  }}
+            {{ article.get_text_as_markdown|linebreaksbr|truncatechars:15  }}
           </p>
           <p>
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>
@@ -325,7 +325,7 @@
             </div>
           </div>
           <p class="text">
-            {{ article.text|linebreaksbr|truncatechars:60 }}
+            {{ article.get_text_as_markdown|linebreaksbr|truncatechars:15 }}
           </p>
           <p>
             <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">続きを見る</a>

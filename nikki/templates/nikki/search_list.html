@@ -41,7 +41,7 @@
           </div>
         </div>
         <p class="card-text">
-          {{ article.text|linebreaksbr|truncatechars:60  }}
+          {{ article.get_text_as_markdown|linebreaksbr|truncatechars:15  }}
         </p>
         <p>
           <a href="{% url 'nikki:detail_article' article.id %}" class="card-link">

@@ -39,7 +39,7 @@
         <p class="posted-at font-weight-light text-muted">
           {{ article.created_at|date:"Y/n/d" }}
         </p>
-        {{ article.text | linebreaksbr | urlize}}
+        {{ article.get_text_as_markdown | linebreaksbr | urlize}}
       </div>
 
     </div>

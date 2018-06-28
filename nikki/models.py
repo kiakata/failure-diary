@@ -8,6 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.base_user import BaseUserManager
 
+# markdown
+from django.utils.html import mark_safe
+from markdown import markdown
+
 
 class UserManager(BaseUserManager):
     """
@@ -143,6 +147,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_text_as_markdown(self):
+        return mark_safe(markdown(self.text, safe_mode='escape'))
 
 
 class Comment(models.Model):
