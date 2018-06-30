@@ -2,6 +2,7 @@
 {% load static %}
 {% block extracss %}
 <link rel="stylesheet" href="{% static 'nikki/forms.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 {% endblock %}
 
 {% block title %}失敗diaryを投稿{% endblock %}
@@ -88,3 +89,11 @@
 </div>
 
 {% endblock %}
+
+{% block javascript %}
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  <script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock %}
+
